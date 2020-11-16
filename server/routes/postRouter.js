@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../schemas/post");
 
+let currentPage = 1;
+let postsInCurrentPage = 0;
+
 router.post("/delete", async (req, res) => {
   try {
     await Post.remove({
@@ -25,39 +28,47 @@ router.post("/update", async (req, res) => {
         }
       }
     );
-    res.json({ message: "게시글이 수정 되었습니다." });
+    res.json({ message: "Post Edited" });
   } catch (err) {
     console.log(err);
     res.json({ message: false });
   }
 });
 
+// Write a new post
 router.post("/write", async (req, res) => {
   try {
     let obj;
 
     obj = {
-      writer: req.body.id,
+      writer: req.body._id,
       title: req.body.title,
-      content: req.body.content
+      content: req.body.content,
+      page: currentPage,
     };
 
     const newPost = new Post(obj);
     await newPost.save();
     res.json({ message: "Post Uploaded" });
+    postsInCurrentPage++;
+    if (postsInCurrentPage === 8) {
+      currentPage++;
+      postsInCurrentPage=0
+    }
   } catch (err) {
     console.log(err);
     res.json({ message: false });
   }
 });
 
+// Get all the posts in DB
 router.post("/getPostList", async (req, res) => {
   try {
-    const _id = req.body._id;
-    const posts = await Post.find({}, null, {
+    const fetchPosts = await Post.find({page: req.body._page}, null, {
       sort: { createdAt: -1 }
     });
-    res.json({ list: posts });
+    console.log(fetchPosts.length)
+    res.json({ posts: fetchPosts, length: fetchPosts.length});
   } catch (err) {
     console.log(err);
     res.json({ message: false });

@@ -34,7 +34,7 @@ class Create extends Component {
         url = "http://localhost:8080/post/write";
         send_param = {
             headers,
-            "id" : 'myoons',
+            "_id" : 'myoons',
             "title": boardTitle,
             "content": boardContent
         };

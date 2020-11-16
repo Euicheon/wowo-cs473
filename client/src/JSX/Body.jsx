@@ -1,17 +1,19 @@
-import Images from './Images';
+import React, { Component } from 'react'
+import Posts from './Posts';
 
 import {Button} from 'react-bootstrap';
 import {NavLink} from "react-router-dom";
+class Body extends Component {
 
-const Body = () => {
-
-    return (
-        <div>
-        <NavLink to='/create'> <Button variant='success'>Create</Button> </NavLink>
-        <NavLink to='/filter'> <Button variant='success'>Filter</Button> </NavLink>
-        <Images/>
-        </div>
-    );
+    render() {
+        return (
+            <div>
+            <NavLink to='/create'> <Button variant='success'>Create</Button> </NavLink>
+            <NavLink to='/filter'> <Button variant='success'>Filter</Button> </NavLink>
+            <Posts/>
+            </div>
+        );
+    }
 };
 
 export default Body;

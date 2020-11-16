@@ -8,8 +8,7 @@ import Image from './Image';
 
 const Images = () => {
     
-    let pageNum = 1;
-
+    const [currentPage, setCurrentPage] = useState(1);
     const [imagesArray, setImagesArray] = useState([]);
     const [totalPages, setTotalPages] = useState(0);
 
@@ -22,14 +21,19 @@ const Images = () => {
     }
 
     const fetchImages = (pageNumber) => {
+      setCurrentPage(currentPage + 1);
+      console.log('CurrentPage : ',currentPage);
+
         API.get("/", {params:{page:pageNumber}}).then(res => {
+          console.log(res);
             setImagesArray([...imagesArray, ...res.data.hits]);
             setTotalPages(res.data.totalHits / res.data.hits.length);
-        }).catch(err => console.log(err));
+        }).catch(err => console.log('Error : ',err));
+        console.log('ImageArray : ', imagesArray.length);
     };
 
     useEffect(() => {
-        fetchImages(pageNum);
+        fetchImages(currentPage);
     },[]);
       
     return (
@@ -37,8 +41,8 @@ const Images = () => {
           <div className="col-md-12">
             <InfiniteScroll 
             pageStart={0} 
-            loadMore={() => fetchImages(++pageNum)} 
-            hasMore={pageNum < totalPages ? true : false}>
+            loadMore={() => fetchImages(currentPage)} 
+            hasMore={currentPage < totalPages ? true : false}>
               <Masonry 
               breakpointCols={breakpointsColumnsObj} 
               className="masonry-grid" 

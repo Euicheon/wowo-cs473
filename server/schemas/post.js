@@ -15,13 +15,17 @@ const postSchema = new Schema({
     type: String,
     required: true
   },
+  page: {
+    type: Number,
+    required: true
+  },
   imgPath: {
     type: String
   },
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
 });
 
 module.exports = mongoose.model("Post", postSchema);

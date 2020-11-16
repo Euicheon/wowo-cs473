@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API = axios.create({
     baseURL: 'https://pixabay.com/api',
+    withCredentials: false,
     header: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
