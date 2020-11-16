@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import CKEditor from "ckeditor4-react";
 import {Button, Form} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
@@ -10,18 +10,19 @@ import '../CSS/create.css';
 axios.defaults.withCredentials = true;
 const headers = { withCredentials: true };
 
-class Create extends Component {
+const Create = () => {
 
-    state = {
-        data: ''
-    };
+    const [data, setData] = useState('');
+    const [title, setTitle] = useState('');
 
-    writeBoard = () => {
+    const writeBoard = () => {
         let url;
         let send_param;
-    
-        const boardTitle = this.boardTitle.value;
-        const boardContent = this.state.data;
+      
+        console.log('title : ',title);
+
+        const boardTitle = title;
+        const boardContent = data;
     
         if (boardTitle === undefined || boardTitle === "") {
           alert("Write the title");
@@ -55,33 +56,27 @@ class Create extends Component {
           });
     };
 
-    onEditorChange = evt => {
-        this.setState({
-            data: evt.editor.getData()
-        });
-    };
+    const handleChange = evt => {setTitle(evt.target.value)};
+    const onEditorChange = evt => {setData(evt.editor.getData());};
 
-    render() {
-        
-        const divStyle = {margin: 50};
-        const titleStyle = {marginBottom: 5};
-        const buttonStyle = {marginTop: 5};
+    const divStyle = {margin: 50};
+    const titleStyle = {marginBottom: 5};
+    const buttonStyle = {marginTop: 5};
 
-        return (
-            <div style={divStyle} className="create">
-                <h2>Create</h2>
-                <Form.Control
-                    type="text"
-                    style={titleStyle}
-                    placeholder="Title"
-                    ref={ref => (this.boardTitle = ref)}
-                />
-                <CKEditor data={this.state.data} onChange={this.onEditorChange}/>
-                <Button style={buttonStyle} onClick={this.writeBoard} block> Save </Button>
-                <NavLink to='/hunsu'> <Button style={buttonStyle} block> Quit </Button> </NavLink>
-            </div>
-        );
-    }
+    return (
+      <div style={divStyle} className="create">
+        <h2>Create</h2>
+          <Form.Control
+            type="text"
+            style={titleStyle}
+            onChange={handleChange}
+            placeholder="Title"
+          />
+            <CKEditor data={data} onChange={onEditorChange}/>
+            <Button style={buttonStyle} onClick={writeBoard} block> Save </Button>
+            <NavLink to='/hunsu'> <Button style={buttonStyle} block> Quit </Button> </NavLink>
+      </div>
+    );
 }
 
 export default Create;

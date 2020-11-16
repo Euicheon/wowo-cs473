@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../schemas/post");
 
-let currentPage = 1;
-let postsInCurrentPage = 0;
-
 router.post("/delete", async (req, res) => {
   try {
     await Post.remove({
@@ -38,7 +35,14 @@ router.post("/update", async (req, res) => {
 // Write a new post
 router.post("/write", async (req, res) => {
   try {
+    let currentPage;
     let obj;
+
+    const mostCurrentPost = await Post.findOne({}, null, {sort: { createdAt: -1 }});
+    const currentPagePosts = await Post.find({page: mostCurrentPost.page});
+    
+    if (currentPagePosts.length < 8) { currentPage = mostCurrentPost.page}
+    else { currentPage = mostCurrentPost.page + 1}
 
     obj = {
       writer: req.body._id,
@@ -50,24 +54,18 @@ router.post("/write", async (req, res) => {
     const newPost = new Post(obj);
     await newPost.save();
     res.json({ message: "Post Uploaded" });
-    postsInCurrentPage++;
-    if (postsInCurrentPage === 8) {
-      currentPage++;
-      postsInCurrentPage=0
-    }
   } catch (err) {
     console.log(err);
     res.json({ message: false });
   }
 });
 
-// Get all the posts in DB
+// Get all the posts in DB & Infinite Scroll
 router.post("/getPostList", async (req, res) => {
   try {
     const fetchPosts = await Post.find({page: req.body._page}, null, {
       sort: { createdAt: -1 }
     });
-    console.log(fetchPosts.length)
     res.json({ posts: fetchPosts, length: fetchPosts.length});
   } catch (err) {
     console.log(err);
