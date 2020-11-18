@@ -1,25 +1,21 @@
-import logo from './logo.svg';
+import React from 'react';
+import SwipeableViews from 'react-swipeable-views';
+import MainPage from './main/MainPage';
+import CrewPage from './crew/CrewPage';
+import HunsuPage from './hunsu/HunsuPage';
+import CalendarPage from './calendar/CalendarPage';
+import InfoPage from './info/InfoPage';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <SwipeableViews enableMouseEvents>
+    <MainPage />
+    <CrewPage />
+    <HunsuPage />
+    <CalendarPage />
+    <InfoPage />
+  </SwipeableViews>
+);
 
 export default App;

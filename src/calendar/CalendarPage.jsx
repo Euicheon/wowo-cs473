@@ -14,12 +14,12 @@ const styles = {
 	},
 };
 
-const CrewPage = () => {
+const CalendarPage = () => {
 	return (
 		<div style={styles.align}>
-			CrewPage
+			CalendarPage
 		</div>
 	);
 };
 
-export default CrewPage;
+export default CalendarPage;
