@@ -4,7 +4,7 @@ const styles = {
 	align: {
 		backgroundColor: 'skyblue',
 		textAlign: 'center',
-		height: '680px',
+		height: '650px',
 		width: '400px',
 		margin: 'auto',
 		display: 'flex',
