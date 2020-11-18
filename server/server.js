@@ -11,6 +11,8 @@ const corsOptions = {
   credentials: true
 };
 
+app.use(express.static("public"));
+
 app.use(
   session({
     resave: false,
@@ -33,3 +35,4 @@ app.use("/post", require("./routes/postRouter"));
 app.listen(8080, () => {
   console.log("Listening to Post : 8080 ..");
 });
+

@@ -9,7 +9,6 @@ const Body = () => {
     return (
         <div>
             <NavLink to='/create'> <Button variant='success'>Create</Button> </NavLink>
-            <NavLink to='/filter'> <Button variant='success'>Filter</Button> </NavLink>
             <Posts/>
         </div>
     );

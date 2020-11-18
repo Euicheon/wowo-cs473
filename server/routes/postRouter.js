@@ -38,7 +38,6 @@ router.post("/write", async (req, res) => {
 // Get the posts in DB & Infinite Scroll
 router.post("/getPostList", async (req, res) => {
 
-  let currentPage;
   let fetchLength;
 
   try {

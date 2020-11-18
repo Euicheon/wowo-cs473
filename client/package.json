@@ -9,6 +9,7 @@
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "ckeditor4-react": "^1.2.1",
+    "draft-js": "^0.11.7",
     "jquery": "^3.5.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
