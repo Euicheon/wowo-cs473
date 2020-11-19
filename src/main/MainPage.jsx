@@ -1,4 +1,5 @@
 import React from 'react';
+import Stopwatch from './Stopwatch';
 
 const styles = {
 	align: {
@@ -17,7 +18,7 @@ const styles = {
 const MainPage = () => {
 	return (
 		<div style={styles.align}>
-			MainPage
+			<Stopwatch />
 		</div>
 	);
 };
