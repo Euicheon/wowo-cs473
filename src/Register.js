@@ -21,21 +21,21 @@ class Register extends React.Component{
         const {email, username, password} = this.state;
         firebase
             .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => {
-            const user = firebase.auth().currentUser;
-            user
-                .updateProfile({displayName: username})
+            .createUserWithEmailAndPassword(email, password)
             .then(() => {
-                this.props.history.push('/');
-            })
+                const user = firebase.auth().currentUser;
+                user
+                    .updateProfile({displayName: username})
+                .then(() => {
+                    this.props.history.push('/');
+                })
+                .catch(error => {
+                    this.setState({error});
+                });
+                })
             .catch(error => {
                 this.setState({error});
             });
-            })
-        .catch(error => {
-            this.setState({error});
-        });
 	}
 	render(){
 		const {email, username, password, error} = this.state;
