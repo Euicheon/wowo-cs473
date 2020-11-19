@@ -21,14 +21,10 @@ const styles = {
 		textAlign: 'center',
 		height: '650px',
 		width: '400px',
-		margin: 'auto',
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'center',
   },
   fixSize: {
-    height: '650px',
+    overflowX: 'hidden',
+    height: '600px',
 		width: '400px',
   }
 };
