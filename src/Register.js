@@ -3,8 +3,11 @@ import firebase from './firebase'
 import { Link } from 'react-router-dom';
 import './Auth.css';
 import Login from './Login';
-class Register extends React.Component{
-	constructor(props){
+
+//firestore userDB 등록
+var db = firebase.firestore();
+class Register extends React.Component {
+	constructor(props) {
 		super(props);
 		this.state = {
 			username: '',
@@ -14,32 +17,47 @@ class Register extends React.Component{
 		}
 	}
 	handleChange = e => {
-		this.setState({[e.target.name]: e.target.value});
+		this.setState({ [e.target.name]: e.target.value });
 	}
 	handleSubmit = e => {
 		e.preventDefault();
-        const {email, username, password} = this.state;
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then(() => {
-                const user = firebase.auth().currentUser;
-                user
-                    .updateProfile({displayName: username})
-                .then(() => {
-                    this.props.history.push('/');
-                })
-                .catch(error => {
-                    this.setState({error});
-                });
-                })
-            .catch(error => {
-                this.setState({error});
-            });
+		const { email, username, password } = this.state;
+		//firebase Auth에 등록
+		firebase
+			.auth()
+			.createUserWithEmailAndPassword(email, password)
+			.then(() => {
+				const user = firebase.auth().currentUser;
+				user
+					.updateProfile({ displayName: username })
+					.then(() => {
+						this.props.history.push('/');
+					})
+					.catch(error => {
+						this.setState({ error });
+					});
+				db.collection("users").doc(user.uid).set({
+					username: username,
+					email: email,
+					crew: null
+				})
+					.then(function (docRef) {
+						console.log("Document written with ID: ", docRef.id);
+					})
+					.catch(function (error) {
+						console.error("Error adding document: ", error);
+					});
+
+			})
+			.catch(error => {
+				this.setState({ error });
+			});
+
+
 	}
-	render(){
-		const {email, username, password, error} = this.state;
-		return(
+	render() {
+		const { email, username, password, error } = this.state;
+		return (
 			<div className="auth--container">
 				<h1>Register your account</h1>
 				{error && <p className="error-message">{error.message}</p>}
