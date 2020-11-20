@@ -16,40 +16,39 @@ const Posts = () => {
     const [posts, setPosts] = useState([]);
     const [allPosts, setAllPosts] = useState([]);
     const [hasmore, setHasMore] = useState(true);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
 
     const breakpointsColumnsObj = {default: 2}
 
     useEffect(() => {
-        fetchAllPosts();
-        fetchPosts();
+        loadPosts();
     }, []);
 
-    const fetchPosts = () => {
-        const send_param = {headers, _id: 'myoons', _page: page};
-        axios
-            .post("http://localhost:8080/post/getPostList", send_param)
-            .then(returnData => {
-                if (returnData.data.length === 0) {
-                    console.log('fetchPostsFinished',returnData.data);
-                    alert("All posts loaded");
-                    setHasMore(false)}
-                else {
-                    console.log('fetchPosts',returnData.data);
-                    setPosts((prev) => [...prev, ...returnData.data.posts]);
-                    setPage(prev => prev + 1);      
-                }
-            }).catch(err => {console.log(err);}); 
-    };
-
-    const fetchAllPosts = () => {
+    const loadPosts = () => {
+        
         const send_param = {headers, _id: 'myoons'};
         axios
             .post("http://localhost:8080/post/getAll", send_param)
             .then(returnData => {
-                setAllPosts(returnData.data.posts)
+                setAllPosts(returnData.data.posts);
+                
+                var currentPage = 10 * page;
+                var loadLists;
+                console.log('ALL : ', returnData.data.posts)
+                if (returnData.data.posts.length >= currentPage+10) {
+                    loadLists = returnData.data.posts.slice(currentPage, currentPage+10);
+                    console.log('loadPosts_IF : ',loadLists);
+                    setPosts((prev) => [...prev, ...loadLists]); 
+                    setPage(prev => prev + 1); 
+                } else {
+                    loadLists = returnData.data.posts.slice(currentPage)
+                    console.log('loadPosts_ELSE : ',loadLists);
+                    setPosts((prev) => [...prev, ...loadLists]); 
+                    setHasMore(false);
+                }
+
             }).catch(err => {console.log(err);}); 
-    };
+    }
 
     const onChange = evt => {
 
@@ -66,7 +65,7 @@ const Posts = () => {
                 <div className="col-md-12">
                     <InfiniteScroll
                         dataLength={posts.length}
-                        next={fetchPosts}
+                        next={loadPosts}
                         hasMore={hasmore}
                         loader={<Loader/>}>
 
