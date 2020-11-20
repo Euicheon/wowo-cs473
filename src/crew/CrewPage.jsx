@@ -5,15 +5,6 @@ import firebase from '../firebase';
 import Chatbox from './ChatBox';
 import './CrewPage.css';
 
-const styles = {
-	align: {
-		backgroundColor: 'skyblue',
-		textAlign: 'center',
-		height: '600px',
-		width: '400px',
-	},
-};
-
 // Set 'general' for real mode.
 // Change chatRefType to 'test' for testing mode.
 const chatRefType = 'general' 
@@ -47,7 +38,7 @@ class CrewPage extends React.Component{
 
 	render(){
 		return(
-			<div className="home--container">
+			<div className="crew-home--container">
 				<h1>Welcome to the chat!</h1>
 				{this.props.user && 
 					<div className="allow-chat">

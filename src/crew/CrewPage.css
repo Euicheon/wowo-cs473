@@ -1,9 +1,9 @@
-.home--container{
+.crew-home--container{
 	margin: 0 auto;
-	height: 650px;
-	width: 400px;
+	height: 100%;
+	width: 100%;
 }
-.home--container h1{
+.crew-home--container h1{
 	text-align: center;
 }
 

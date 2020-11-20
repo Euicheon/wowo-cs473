@@ -4,8 +4,8 @@ const styles = {
 	align: {
 		backgroundColor: 'skyblue',
 		textAlign: 'center',
-		height: '600px',
-		width: '400px',
+		height: '100%',
+		width: '100%',
 	},
 };
 

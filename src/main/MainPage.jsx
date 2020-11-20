@@ -6,7 +6,7 @@ const styles = {
 		backgroundColor: 'skyblue',
 		textAlign: 'center',
 		height: '600px',
-		width: '400px',
+		width: '100%',
 	},
 };
 

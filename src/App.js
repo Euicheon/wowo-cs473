@@ -20,13 +20,12 @@ import './App.css';
 const styles = {
 	align: {
 		textAlign: 'center',
-		height: '650px',
-		width: '400px',
+		height: '600px',
+    width: '350px',
   },
   fixSize: {
-    overflowX: 'hidden',
-    height: '600px',
-		width: '400px',
+    height: '100%',
+    width: '100%',
   }
 };
 
@@ -42,11 +41,10 @@ const App = (props) => {
   };
 
   return (
-    <div className="home--container">
-      <h1>Welcome to the wowo!</h1>
+    <div className="app-home--container">
       {props.user &&
         <div style={styles.align}>
-          <SwipeableViews style={styles.fixSize} index={index} onChangeIndex={handleChangeIndex} enableMouseEvents>
+          <SwipeableViews animateHeight={true} style={styles.fixSize} index={index} onChangeIndex={handleChangeIndex} enableMouseEvents>
             <MainPage />
             <CrewPage user={props.user} />
             <HunsuPage />
