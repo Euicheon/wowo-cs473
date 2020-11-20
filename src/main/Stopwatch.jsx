@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import ReactStopwatch from 'react-stopwatch';
 
-import WorkoutPage from './WorkoutPage';
-
 const styles = {
   button: {
     position: 'absolute',
@@ -34,7 +32,7 @@ const Stopwatch = () => {
         hours={0}
         onCallback={() => console.log('Finish')}
         render={({ formatted }) => (
-            <WorkoutPage formatted={formatted} />)}
+            <div>{formatted}</div>)}
       />}
       <button style={styles.button} onClick={onClick}>
         {start ? 'STOP' : 'START'}
