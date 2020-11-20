@@ -20,13 +20,18 @@ class AppRouter extends React.Component {
 		});
 	}
 
+	logOutUser () {
+		firebase.auth().signOut()
+		.then(window.location = "login");
+	}
+
 	render() {
 		return (
 			<Router>
 				<div className="app">
 					<nav className="main-nav">
 						{this.state.user &&
-							<a href="#!" onClick={this.logOutUser}>Logout</a>
+							<a href="/" onClick={this.logOutUser}>Logout</a>
 						}
 					</nav>
 
