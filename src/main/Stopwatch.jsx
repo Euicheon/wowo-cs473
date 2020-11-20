@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import ReactStopwatch from 'react-stopwatch';
 
-import WorkoutPage from './WorkoutPage';
-
+import PopUp from './PopUp'
 const styles = {
   button: {
     position: 'absolute',
@@ -21,23 +20,36 @@ const styles = {
 
 const Stopwatch = () => {
   const [start, setStart] = useState(false);
+  const [pop, setPop] = useState(false);
+  const [timeSpent, setTimeSpent] = useState('00:00:00');
+  const [doneTime, setDoneTime] = useState(Date.now);
 
   const onClick = () => {
+    if (start) {
+      setPop(true)
+      setDoneTime(Date.now)
+    }
     setStart(!start)
   };
 
   return (
     <>
-      {start && <ReactStopwatch
-        seconds={0}
-        minutes={0}
-        hours={0}
-        onCallback={() => console.log('Finish')}
-        render={({ formatted }) => (
-            <WorkoutPage formatted={formatted} />)}
-      />}
+      {start &&
+        <ReactStopwatch
+          seconds={0}
+          minutes={0}
+          hours={0}
+          onCallback={() => console.log('Finish')}
+          render={({ formatted }) => {
+            setTimeSpent(formatted)
+            return (<div>{formatted}</div>)
+          }}
+        />}
+      {pop &&
+        <PopUp handleCancel={setPop} timestamp={doneTime} timeSpent={timeSpent} />
+      }
       <button style={styles.button} onClick={onClick}>
-        {start ? 'STOP' : 'START'}
+        {start ? 'DONE' : 'START'}
       </button>
     </>
   );
