@@ -55,7 +55,7 @@ const App = (props) => {
             <BottomNavigationAction label="Crew" value="1" icon={<Forum />} />
             <BottomNavigationAction label="Hunsu" value="2" icon={<Dashboard />} />
             <BottomNavigationAction label="Calendar" value="3" icon={<DateRange />} />
-            <BottomNavigationAction label="Info" value="4" icon={<AccountCircle />} />
+            <BottomNavigationAction label="Profile" value="4" icon={<AccountCircle />} />
           </BottomNavigation>
         </>
       }
