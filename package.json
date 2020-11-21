@@ -25,6 +25,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-stopwatch": "^2.0.4",
+    "react-swipeable-routes": "^0.8.0",
     "react-swipeable-views": "^0.13.9",
     "styled-components": "^5.2.1",
     "web-vitals": "^0.2.4"

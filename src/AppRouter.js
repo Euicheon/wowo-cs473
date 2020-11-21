@@ -1,12 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import firebase, { auth, provider } from './firebase.js'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import App from './App';
 import Login from './Login';
 import Register from './Register';
-import firebase, { auth, provider } from './firebase.js'
 import Create from './hunsu/JSX/Create';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import PostDetail from './hunsu/JSX/PostDetail';
+
 class AppRouter extends React.Component {
 	//Add Contstructor to AppRouter component
 	constructor(props) {
@@ -22,9 +24,9 @@ class AppRouter extends React.Component {
 		});
 	}
 
-	logOutUser () {
+	logOutUser() {
 		firebase.auth().signOut()
-		.then(window.location = "login");
+			.then(window.location = "login");
 	}
 
 	render() {
@@ -38,7 +40,7 @@ class AppRouter extends React.Component {
 					</nav>
 					<div className="container-fluid">
 						<Switch>
-							<Route path="/" exact render={() => <App user={this.state.user} />} />
+							<Route path="/" render={() => <App user={this.state.user} index={this.props.index} />} />
 							<Route path="/login" exact component={Login} />
 							<Route path="/register" exact component={Register} />
 							<Route path="/create" component={Create}></Route>
