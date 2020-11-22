@@ -4,7 +4,7 @@ import SwipeableRoutes from 'react-swipeable-routes';
 
 import MainPage from './main/MainPage';
 import CrewPage from './crew/CrewPage';
-import HunsuPage from './hunsu/JSX/HunsuPage';
+import HunsuPage from './hunsu/HunsuPage';
 import CalendarPage from './calendar/CalendarPage';
 import InfoPage from './info/InfoPage';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
@@ -15,8 +15,11 @@ import {
   DateRange,
   AccountCircle,
 } from '@material-ui/icons'
+import firebase from './firebase';
 
 import './App.css';
+
+var db = firebase.firestore();
 
 const styles = {
   fixSize: {
@@ -29,6 +32,8 @@ const styles = {
 };
 
 const App = (props) => {
+
+  const [crew, setCrew] = useState(null);
   const [index, setIndex] = useState(props.index || 0);
 
   const handleChange = (event, value) => {
@@ -39,6 +44,33 @@ const App = (props) => {
     setIndex(value)
   };
 
+	const crewValidity = (uid) => {
+		var docRef = db.collection("users").doc(uid);
+		docRef.get().then(function(doc) {
+			if (doc.data().crew != null) {
+				setCrew(doc.data().crew)
+			} else {
+        // doc.data() will be undefined in this case
+        console.log(doc);
+				console.log("No such document!");
+			}
+		}).catch(function(error) {
+			console.log("Error getting document:", error);
+		});
+  }
+  console.log("beforeUSE",props)
+  // useEffect(() => {
+  //   // const user = firebase.auth().currentUser;
+  //   // crewValidity(props.user.uid);
+	// 	console.log('컴포넌트가 화면에 나타남',props);
+	// 	return () => {
+	// 	  console.log('컴포넌트가 화면에서 사라짐');
+	// 	};
+  //   }, []);]
+  if(props.user){
+    crewValidity(props.user.uid)
+  }
+  console.log("afterUSE",props)
   return (
     <div className="app-home--container">
       {props.user &&
