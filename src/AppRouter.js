@@ -40,7 +40,7 @@ class AppRouter extends React.Component {
 					</nav>
 					<div className="container-fluid">
 						<Switch>
-							<Route path="/" exact render={() => <App user={this.state.user} index={this.props.index} />} />
+							<Route path="/" render={() => <App user={this.state.user} index={this.props.index} />} />
 							<Route path="/login" exact component={Login} />
 							<Route path="/register" exact component={Register} />
 							<Route path="/hunsu/post/create" exact component={Create}></Route>
