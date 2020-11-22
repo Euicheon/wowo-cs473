@@ -1,0 +1,37 @@
+.root {
+    margin-top: 30px;
+    max-width: 345;
+}
+
+.root .title {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.root .avatar {
+    background-color: #123456;    
+}
+
+.root .createdAt {
+    font-style: italic;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+
+.root .img-fluid {
+    width: 100%;
+    align-self: center;
+}
+
+.root .expand {
+    transform: rotate(0deg);
+    margin-left: auto;
+    transition-duration: 0ms;
+    transition: all;
+}
+
+.root .expandOpen {
+    transform: rotate(180deg);
+}

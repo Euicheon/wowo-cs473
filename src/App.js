@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
-import SwipeableViews from 'react-swipeable-views';
+import { Route, Link } from 'react-router-dom';
+import SwipeableRoutes from 'react-swipeable-routes';
+
 import MainPage from './main/MainPage';
 import CrewPage from './crew/CrewPage';
-import HunsuPage from './hunsu/HunsuPage';
+import HunsuPage from './hunsu/JSX/HunsuPage';
 import CalendarPage from './calendar/CalendarPage';
 import InfoPage from './info/InfoPage';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
@@ -18,19 +19,17 @@ import {
 import './App.css';
 
 const styles = {
-	align: {
-		textAlign: 'center',
-		height: '600px',
+  fixSize: {
+    height: '600px',
     width: '350px',
   },
-  fixSize: {
-    height: '100%',
-    width: '100%',
+  navigation: {
+    backgroundColor: '#EEEEEE',
   }
 };
 
 const App = (props) => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(props.index || 0);
 
   const handleChange = (event, value) => {
     setIndex(parseInt(value))
@@ -43,22 +42,22 @@ const App = (props) => {
   return (
     <div className="app-home--container">
       {props.user &&
-        <div style={styles.align}>
-          <SwipeableViews animateHeight={true} style={styles.fixSize} index={index} onChangeIndex={handleChangeIndex} enableMouseEvents>
-            <MainPage />
-            <CrewPage user={props.user} />
-            <HunsuPage />
-            <CalendarPage />
-            <InfoPage />
-          </SwipeableViews>
-          <BottomNavigation value={index} onChange={handleChange} showLabels>
+        <>
+          <SwipeableRoutes animateHeight={true} style={styles.fixSize} index={index} onChangeIndex={handleChangeIndex} enableMouseEvents>
+            <Route path="/main" component={MainPage} />
+            <Route path="/crew" component={() => <CrewPage user={props.user} />} />
+            <Route path="/hunsu" component={HunsuPage} />
+            <Route path="/calendar" component={CalendarPage} />
+            <Route path="/info" component={InfoPage} />
+          </SwipeableRoutes>
+          <BottomNavigation style={styles.navigation} value={index} onChange={handleChange} showLabels>
             <BottomNavigationAction label="Main" value="0" icon={<Home />} />
             <BottomNavigationAction label="Crew" value="1" icon={<Forum />} />
             <BottomNavigationAction label="Hunsu" value="2" icon={<Dashboard />} />
             <BottomNavigationAction label="Calendar" value="3" icon={<DateRange />} />
-            <BottomNavigationAction label="Info" value="4" icon={<AccountCircle />} />
+            <BottomNavigationAction label="Profile" value="4" icon={<AccountCircle />} />
           </BottomNavigation>
-        </div>
+        </>
       }
       {!props.user &&
         <div className="disallow-chat">

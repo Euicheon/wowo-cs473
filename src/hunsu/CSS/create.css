@@ -1,0 +1,48 @@
+.create {
+    text-align: center;
+}
+
+.profile_preview {
+    margin-top: 2.5px;
+    border-radius: 5px;
+    height: 140px;
+    width: 140px;
+}
+
+.img-holder{
+    width: 150px;
+    height: 150px;
+    border: 3px black solid;
+    border-radius: 5px;
+    margin-top: 1rem;
+    margin-bottom: 0px;
+}
+
+.img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+#input[type="file"] {
+      display: none;
+}
+  
+.label{
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+  
+.image-upload{
+    margin: auto;
+    width: 150px;
+    height: 30px;
+    color: white;
+    border-radius: 10px;
+    background-color: black;
+    text-align: center;
+    cursor: pointer;
+}
