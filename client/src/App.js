@@ -12,7 +12,7 @@ const App = () => {
     <div className="App">
       <div className="container-fluid">
         <Route exact path="/" component={Temp}></Route>
-        <Route path="/create" component={Create}></Route>
+        <Route path="/post/create" component={Create}></Route>
         <Route path="/hunsu" component={Body}></Route>
         <Route path="/post/detail" component={PostDetail}></Route>
       </div> 

@@ -4,11 +4,8 @@ import '../CSS/Post.css';
 
 const Post = (props) => {
 
-    const [writer, setWriter] = useState('Default Writer');
     const [title, setTitle] = useState('Default Title');
-    const [content, setContent] = useState('Default Content');
     const [imgPath, setImgPath] = useState('https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png');
-    const [createdAt, setCreatedAt] = useState('Default Date');
 
     const defaultImages = [
         'https://upload.wikimedia.org/wikipedia/commons/7/7d/Wildlife_at_Maasai_Mara_%28Lion%29.jpg',
@@ -29,14 +26,11 @@ const Post = (props) => {
     ]
 
     const handleProps = (info) => {
-        if (info.writer !== undefined) {setWriter(info.writer)};
-        if (info.title !== undefined) {setTitle(info.title)};
-        if (info.content !== undefined) {setContent(info.content)};
-        if (info.createdAt !== undefined) {setCreatedAt(info.createdAt)};
+        if (info.data.title !== undefined) {setTitle(info.data.title)};
     }
 
     const handleImgPath = (info) => {
-        if (info.imgPath !== undefined) {setImgPath(info.imgPath)}
+        if (info.data.imgPath !== undefined) {setImgPath(info.data.imgPath)}
         else {
             var randImage = Math.floor(Math.random() * defaultImages.length)
             setImgPath(defaultImages[randImage])
@@ -52,14 +46,11 @@ const Post = (props) => {
         <div className="row">
             <div className="col-md-12 px-0">
                 <div className="rounded-lg overflow-hidden">
+                {/*<div className='description'>♥{props.info.data.whoLikes.length}</div>*/}
                     <NavLink to={{
                         pathname: '/post/detail',
-                        state: {writer: writer,
-                                title: title,
-                                content: content,
-                                imgPath: imgPath,
-                                createdAt: createdAt}}}>
-                        <img src={imgPath} alt='' className="img-fluid"/>
+                        state: props.info}}>
+                        <img src={imgPath} alt={props.info.id} className="img-fluid"/>
                     </NavLink>
                     <div className='description'>{title}</div>
                 </div>
