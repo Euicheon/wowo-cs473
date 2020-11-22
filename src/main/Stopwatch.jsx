@@ -18,16 +18,44 @@ const styles = {
   }
 }
 
+const makeFormat = (h, m, s) => {
+  const hour = h.toString(); 
+  const min = m.toString(); 
+  const sec = s.toString();
+  var formatted = '';
+
+  // console.log(hour, min, sec);
+
+  if (hour.length === 1) {
+    formatted = formatted.concat('0', hour, ':')
+  } else {
+    formatted = formatted.concat(hour, ':')
+  }
+
+  if (min.length === 1) {
+    formatted = formatted.concat('0', min, ':')
+  } else {
+    formatted = formatted.concat(min, ':')
+  }
+
+  if (sec.length === 1) {
+    formatted = formatted.concat('0', sec, ':')
+  } else {
+    formatted = formatted.concat(sec, ':')
+  }
+  return formatted
+}
+
 const Stopwatch = () => {
   const [start, setStart] = useState(false);
   const [pop, setPop] = useState(false);
   const [timeSpent, setTimeSpent] = useState('00:00:00');
-  const [doneTime, setDoneTime] = useState(Date.now);
+  const [doneTime, setDoneTime] = useState(new Date());
 
   const onClick = () => {
     if (start) {
       setPop(true)
-      setDoneTime(Date.now)
+      setDoneTime(new Date())
     }
     setStart(!start)
   };
@@ -40,13 +68,14 @@ const Stopwatch = () => {
           minutes={0}
           hours={0}
           onCallback={() => console.log('Finish')}
-          render={({ formatted }) => {
+          onChange={({hours, minutes, seconds}) => {
+            const formatted = makeFormat(hours, minutes, seconds);
             setTimeSpent(formatted)
-            return (<div>{formatted}</div>)
           }}
+          render={({ formatted }) => (<div>{formatted}</div>)}
         />}
       {pop &&
-        <PopUp handleCancel={setPop} timestamp={doneTime} timeSpent={timeSpent} />
+        <PopUp handleSubmit={setPop} timestamp={doneTime} timeSpent={timeSpent} />
       }
       <button style={styles.button} onClick={onClick}>
         {start ? 'DONE' : 'START'}
