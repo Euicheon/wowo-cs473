@@ -1,12 +1,10 @@
 import React, {useState} from "react";
-import {Button, Form} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
-import CKEditor from "ckeditor4-react";
-
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
 import '../CSS/create.css';
-import upload from '../images/preview.png'
-import { alignPropType } from "react-bootstrap/esm/DropdownMenu";
 
 axios.defaults.withCredentials = true;
 const headers = { withCredentials: true };
@@ -32,7 +30,7 @@ const Create = () => {
           alert("Write the contents");
           return;
         }
-        
+
         url = "http://localhost:8080/post/write";
         send_param = {
             headers,
@@ -57,8 +55,7 @@ const Create = () => {
           });
     };
 
-    const handleChange = evt => {setTitle(evt.target.value)};
-    const onEditorChange = evt => {setData(evt.editor.getData());};
+    const handleTitleChange = evt => {setTitle(evt.target.value)};
 
     const handleFileOnChange = evt => {
       evt.preventDefault();
@@ -70,40 +67,36 @@ const Create = () => {
       }
       reader.readAsDataURL(file);
     }
-
-    const divStyle = {margin: 50};
-    const titleStyle = {marginBottom: 5};
-    const buttonStyle = {marginTop: 5};
     
     let profile_preview = null;
     if (file !== '') {profile_preview = <img className='profile_preview' src={previewURL} alt={title} />}
-    else {profile_preview= <img src={upload} className='profile_preview' alt={title} />}
+    else {profile_preview = <div className='empty'> <br/> <br/> Click to upload image</div>}
 
     return (
-      <div style={divStyle} className="create">
-        <h2>Create New Posts!</h2>
-          <Form.Control
+      <div className="create">
+        <h4>Create New Posts!</h4>
+        <h5 className='description'>Title</h5>
+          <input
             type="text"
-            style={titleStyle}
-            onChange={handleChange}
-            placeholder="Title"
+            className='title'
+            onChange={handleTitleChange}
           />
-            <div>
-              <label htmlFor="input" className="img-holder">
-                  {profile_preview}      
-              </label>
-                <input id ='input' type='file' accept='image/jpg, image/png, image/jpeg, image/gif' name='image-upload' onChange={handleFileOnChange}/>
-					      <div className="label">
-                  <label className="image-upload" htmlFor="input">
-						          Choose your Photo
-					        </label>
-                </div>              
-                <CKEditor data={data} onChange={onEditorChange}/>
-            </div>
-            <div className='col-md-12'>
-              <Button style={buttonStyle} onClick={writeBoard} block> Save </Button>
-              <NavLink to='/hunsu'> <Button style={buttonStyle} block> Quit </Button> </NavLink>
-            </div>
+          
+          <div>
+          <h5 className='description'>Image</h5>
+            <label htmlFor="input" className="img-holder">
+                {profile_preview}      
+            </label>
+              <input id ='input' type='file' accept='image/jpg, image/png, image/jpeg, image/gif' name='image-upload' onChange={handleFileOnChange}/>
+            
+            <h5 className='description'>Content</h5>
+            <ReactQuill theme="bubble" className='editor' value={data} onChange={setData}/>
+          </div>
+            
+          <div className='buttonContainer'>
+            <Button onClick={writeBoard} className='button'> Save </Button>
+            <NavLink to='/hunsu'> <Button className='button'> Quit </Button> </NavLink>
+          </div>
       </div>
     );
 }

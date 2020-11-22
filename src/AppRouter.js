@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import firebase, { auth, provider } from './firebase.js'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import firebase, {auth} from './firebase.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App';
@@ -40,11 +40,11 @@ class AppRouter extends React.Component {
 					</nav>
 					<div className="container-fluid">
 						<Switch>
-							<Route path="/" render={() => <App user={this.state.user} index={this.props.index} />} />
+							<Route path="/" exact render={() => <App user={this.state.user} index={this.props.index} />} />
 							<Route path="/login" exact component={Login} />
 							<Route path="/register" exact component={Register} />
-							<Route path="/create" component={Create}></Route>
-							<Route path="/post/detail" component={PostDetail}></Route>
+							<Route path="/hunsu/post/create" exact component={Create}></Route>
+							<Route path="/hunsu/post/detail" exact component={PostDetail}></Route>
 						</Switch>
 					</div>
 				</div>

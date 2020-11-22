@@ -1,19 +1,16 @@
 import React from 'react';
+import Posts from './JSX/Posts'
 
-const styles = {
-	align: {
-		backgroundColor: 'skyblue',
-		textAlign: 'center',
-		height: '100%',
-		width: '100%',
-	},
-};
+import {Button} from 'react-bootstrap';
+import {NavLink} from 'react-router-dom';
+
 
 const HunsuPage = () => {
 	return (
-		<div style={styles.align}>
-			HunsuPage
-		</div>
+		<div>
+            <NavLink to='/post/create'> <Button variant='success'>Create</Button> </NavLink>
+            <Posts/>
+        </div>
 	);
 };
 
