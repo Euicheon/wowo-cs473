@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import firebase from '../firebase';
-
+import Leaderboard from './Leaderboard';
 import Chatbox from './ChatBox';
 import './CrewPage.css';
 
@@ -31,8 +31,8 @@ const CrewPage = (props) => {
 	const [message, setMessage] = useState('');
 	const [crew, setCrew] = useState(props.crew);
 	const [crewList, setCrewList] = useState([]);
-	const [chatRefType, setchatRefType] = useState('');
-
+	const [chatRefType, setChatRefType] = useState('');
+	const [showLeaderboard, setShowLeaderboard] = useState(false);
 
 	const handleChange = e => {
 		setMessage(e.target.value)
@@ -68,13 +68,26 @@ const CrewPage = (props) => {
 		</ul>
 	);
 
+	const toggleLeaderboard = () => {
+		setShowLeaderboard(!showLeaderboard)
+		console.log("showLeaderboard", showLeaderboard)
+	} 
+
 	// handleCrewItemClick = e => {
 	// 	e.preventDefault();
 	// 	crewSignUp(e.crewID)
 	// }
+	//리더보드를 팝업으로 구성 -> css에서 팝업 디자인으로 해주면 됨
+	const LeaderboardPopup = (crewdata) => (
+		<div className='popup'>
+			<div className='popup_inner'>
+				<Leaderboard crewdata={crewdata}></Leaderboard>
+			</div>
+		</div>
+	);
 
 	const crewSignUp = (crewID) => {
-		//user의 crew 정보 업데이
+		//user의 crew 정보 업데이트
 		const user = firebase.auth().currentUser;
 
 		db.collection("users").doc(user.uid).update({
@@ -88,7 +101,7 @@ const CrewPage = (props) => {
 			});
 
 		setCrew(crewID)
-		setchatRefType(crewID)
+		setChatRefType(crewID)
 	};
 
 	const getCrewList = () => {
@@ -104,7 +117,7 @@ const CrewPage = (props) => {
 	useEffect(() => {
 		getCrewList();
 		if(props.crew){
-			setchatRefType(props.crew)
+			setChatRefType(props.crew)
 			setCrew(props.crew)
 		}
 		console.log('컴포넌트가 화면에 나타남', crew);
@@ -114,13 +127,16 @@ const CrewPage = (props) => {
 	  }, []);
 	console.log("??",props.crew, crew, props.user.uid,chatRefType)
 	if((props.crew||crew)&&(!chatRefType)){
-		setchatRefType(props.crew)
+		setChatRefType(props.crew)
 	}
 	return (
 		<div className="home--container">
 			<h1>Welcome to the chat!</h1>
-			{props.user && crew||props.crew &&
+			{(props.user && (crew||props.crew)) &&
 				<div className="allow-chat">
+					<button onClick={toggleLeaderboard}>
+						Go to Leaderboard
+					</button>
 					<form className="send-chat" onSubmit={handleSubmit}>
 						<input type="text" name="message" id="message" value={message} onChange={handleChange} placeholder='Leave a message...' />
 					</form>
@@ -128,7 +144,7 @@ const CrewPage = (props) => {
 					<Chatbox chatRefType={chatRefType} />
 				</div>
 			}
-			{props.user && !(crew||props.crew) &&
+			{(props.user && !(crew||props.crew)) &&
 				<div className="disallow-chat">
 					<CrewListUI list={crewList}></CrewListUI>
 				</div>
@@ -137,6 +153,13 @@ const CrewPage = (props) => {
 				<div className="disallow-chat">
 					<p><Link to="/login">Login</Link> or <Link to="/register">Register</Link> to start chatting!</p>
 				</div>
+			}
+			{showLeaderboard ?
+				<LeaderboardPopup
+					text='Close Me'
+					closePopup={toggleLeaderboard}
+				/>
+				: null
 			}
 		</div>
 	);
