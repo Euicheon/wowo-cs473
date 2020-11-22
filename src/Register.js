@@ -6,6 +6,18 @@ import Login from './Login';
 
 //firestore userDB 등록
 var db = firebase.firestore();
+
+const styles = {
+	fixSize: {
+		height: '600px',
+    width: '350px',
+    borderColot: 'black',
+	},
+	margin: {
+		marginBottom: '40px',
+	},
+};
+
 class Register extends React.Component {
 	constructor(props) {
 		super(props);
@@ -43,8 +55,8 @@ class Register extends React.Component {
 	render() {
 		const { email, username, password, error } = this.state;
 		return (
-			<div className="auth--container">
-				<h1>Register your account</h1>
+			<div className="auth--container" style={styles.fixSize}>
+				<h2 style={styles.margin}>Register your account</h2>
 				{error && <p className="error-message">{error.message}</p>}
 				<form onSubmit={this.handleSubmit}>
 					<label htmlFor="username">Username</label>
@@ -56,6 +68,7 @@ class Register extends React.Component {
 						type="password"
 						name="password"
 						id="password"
+						style={styles.margin}
 						value={password}
 						onChange={this.handleChange}
 					/>
