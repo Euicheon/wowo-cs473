@@ -5,7 +5,6 @@ Server : Node.js
 DB : MongoDB  
 
 ### How to run Client
-cd client  
 npm start
 
 ### How to run Server
