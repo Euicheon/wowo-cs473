@@ -76,11 +76,11 @@ const App = (props) => {
       {props.user &&
         <>
           <SwipeableRoutes animateHeight={true} style={styles.fixSize} index={index} onChangeIndex={handleChangeIndex} enableMouseEvents>
-            <Route path="/home/main" component={MainPage} />
-            <Route path="/home/crew" component={() => <CrewPage user={props.user} />} />
-            <Route path="/home/hunsu" component={HunsuPage} />
-            <Route path="/home/calendar" component={CalendarPage} />
-            <Route path="/home/info" component={InfoPage} />
+            <Route path="/main" component={MainPage} />
+            <Route path="/crew" exact component={() => <CrewPage user={props.user} />} />
+            <Route path="/hunsu" exact component={HunsuPage} />
+            <Route path="/calendar" exact component={CalendarPage} />
+            <Route path="/info" exact component={InfoPage} />
           </SwipeableRoutes>
           <BottomNavigation style={styles.navigation} value={index} onChange={handleChange} showLabels>
             <BottomNavigationAction label="Main" value="0" icon={<Home />} />

@@ -34,19 +34,18 @@ class AppRouter extends React.Component {
 				<div className="app">
 					<nav className="main-nav">
 						{this.state.user &&
-							<a href="/home" onClick={this.logOutUser}>Logout</a>
+							<a href="/main" onClick={this.logOutUser}>Logout</a>
 						}
 					</nav>
-					<div className="container-fluid">
+					{/* <div className="container-fluid"> */}
+						<Route path="/" render={() => <App user={this.state.user} index={this.props.index} />} />
 						<Switch>
-							<Route path="/home/main" render={() => <App user={this.state.user} index={this.props.index} />} />
 							<Route path="/login" exact component={Login} />
 							<Route path="/register" exact component={Register} />
 							<Route path="/hunsu/post/create" exact component={Create}></Route>
 							<Route path="/hunsu/post/detail" exact component={PostDetail}></Route>
 						</Switch>
 					</div>
-				</div>
 			</Router>
 		);
 	}
