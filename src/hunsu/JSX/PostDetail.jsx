@@ -25,6 +25,7 @@ const PostDetail = (props) => {
     const [content, setContent] = useState(''); 
     const [imgPath, setImgPath] = useState(''); 
     const [timestamp, setTimestamp] = useState((new Date()).toString()); 
+    const [username, setUserName] = useState('');
 
     const [expanded, setExpanded] = useState(false);
     const [comments, setComments] = useState([]);
@@ -37,6 +38,11 @@ const PostDetail = (props) => {
     const posts = firebase.firestore().collection("posts");
 
     const parsePost = () => {
+
+        firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get().then(userdata => {
+            console.log('user : ',userdata.data().username);
+            setUserName(userdata.data().username);
+        })
 
         posts.doc(props.location.state.id).get().then(post => {
             
@@ -67,15 +73,15 @@ const PostDetail = (props) => {
     const handleLike = () => {
 
         posts.doc(props.location.state.id).update({
-            whoLikes: [...likeArray, 'userID']
+            whoLikes: [...likeArray, username]
           });
 
-        setLikeArray(prev => [...prev, 'userID']);
+        setLikeArray(prev => [...prev, username]);
     }
 
     const cancelLike = () => {
 
-        var removedArray = likeArray.filter(item => {return item !== 'userID'})
+        var removedArray = likeArray.filter(item => {return item !== username})
         console.log('Removed ARRAY: ',removedArray)
         
         setLikeArray(removedArray);
@@ -90,7 +96,7 @@ const PostDetail = (props) => {
             authorUrl: 'https://www.w3schools.com/w3css/img_lights.jpg',
             avatarUrl: 'https://www.w3schools.com/w3css/img_lights.jpg',
             createdAt: new Date(),
-            fullName: 'userID',
+            fullName: username,
             text: commentText
         }
 
