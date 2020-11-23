@@ -8,10 +8,10 @@ const styles = {
     padding: "10px 10px",
     borderRadius: "100px",
     borderWidth: '2px',
-    borderColor: "#5DB075",
+    borderColor: "#51BBFF",
     fontSize: '20px',
     fontWeight: 'bold',
-    color: '#5DB075',
+    color: '#51BBFF',
     display: 'inline-block',
   },
 }
@@ -20,7 +20,7 @@ const Stopwatch = () => (
   <NavLink to='main/workout'>
     <button
       type="button"
-      class="btn"
+      className="btn"
       style={styles.exerciseButton}
     >
       Exercise!

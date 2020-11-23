@@ -13,7 +13,7 @@ const styles = {
 
 const CalendarPage = () => {
 	return (
-		<div class = "calendar_img">
+		<div className="calendar_img">
 			<img src={calendar} style={styles.align} alt='' />
 		</div>
 	);

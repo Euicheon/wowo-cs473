@@ -75,11 +75,11 @@ const App = (props) => {
     <>
       {props.user &&
         <Col lg={3.5} md={5.5} sm={7.5}>
-          <Navbar bg="light" expand="sm" align="center" class="navbar-custom">
+          <Navbar bg="light" expand="sm" align="center" className="navbar-custom">
             {/* <Navbar.Brand>wowo</Navbar.Brand> */}
-            <a class="navbar-brand" href="/">
-              <div class="logo-image">
-                <img src={logo_img} class="img-fluid" />
+            <a className="navbar-brand" href="/">
+              <div className="logo-image">
+                <img src={logo_img} className="img-fluid" />
               </div>
             </a>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />

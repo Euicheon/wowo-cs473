@@ -75,7 +75,7 @@ const CrewPage = (props) => {
 	const CrewListUI = ({ list }) => (
 		<>
 			{list.map(item => (
-				<CrewItem item={item}></CrewItem>
+				<CrewItem key={item.crewID} item={item}></CrewItem>
 			))}
 		</>
 	);
