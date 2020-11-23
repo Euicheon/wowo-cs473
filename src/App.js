@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import SwipeableRoutes from 'react-swipeable-routes';
+import { Col, Navbar, Nav, } from 'react-bootstrap';
 
 import MainPage from './main/MainPage';
 import CrewPage from './crew/CrewPage';
@@ -24,7 +25,7 @@ var db = firebase.firestore();
 const styles = {
   fixSize: {
     height: '600px',
-    width: '350px',
+    // width: '350px',
   },
   navigation: {
     backgroundColor: '#EEEEEE',
@@ -44,43 +45,52 @@ const App = (props) => {
     setIndex(value)
   };
 
-	const crewValidity = (uid) => {
-		var docRef = db.collection("users").doc(uid);
-		docRef.get().then(function(doc) {
-			if (doc.data().crew != null) {
-				setCrew(doc.data().crew)
-			} else {
+  const crewValidity = (uid) => {
+    var docRef = db.collection("users").doc(uid);
+    docRef.get().then(function (doc) {
+      if (doc.data().crew != null) {
+        setCrew(doc.data().crew)
+      } else {
         // doc.data() will be undefined in this case
         console.log(doc);
-				console.log("No such document!");
-			}
-		}).catch(function(error) {
-			console.log("Error getting document:", error);
-		});
+        console.log("No such document!");
+      }
+    }).catch(function (error) {
+      console.log("Error getting document:", error);
+    });
   }
-  console.log("beforeUSE",props)
+  console.log("beforeUSE", props)
   // useEffect(() => {
   //   // const user = firebase.auth().currentUser;
   //   // crewValidity(props.user.uid);
-	// 	console.log('컴포넌트가 화면에 나타남',props);
-	// 	return () => {
-	// 	  console.log('컴포넌트가 화면에서 사라짐');
-	// 	};
+  // 	console.log('컴포넌트가 화면에 나타남',props);
+  // 	return () => {
+  // 	  console.log('컴포넌트가 화면에서 사라짐');
+  // 	};
   //   }, []);]
-  if(props.user){
+  if (props.user) {
     crewValidity(props.user.uid)
   }
-  console.log("afterUSE",props)
+  console.log("afterUSE", props)
   return (
-    <div className="app-home--container">
+    <>
       {props.user &&
-        <>
+        <Col lg={4} md={6} sm={8}>
+          <Navbar bg="light" expand="sm">
+            <Navbar.Brand>wowo</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link onClick={() => firebase.auth().signOut()}href="/login">Logout</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
           <SwipeableRoutes animateHeight={true} style={styles.fixSize} index={index} onChangeIndex={handleChangeIndex} enableMouseEvents>
-            <Route path="/main" component={MainPage} />
-            <Route path="/crew" component={() => <CrewPage user={props.user} crew={crew} />} />
-            <Route path="/hunsu" component={HunsuPage} />
-            <Route path="/calendar" component={CalendarPage} />
-            <Route path="/info" component={InfoPage} />
+            <Route path="/main" exact component={MainPage} />
+            <Route path="/crew" exact component={() => <CrewPage user={props.user} />} />
+            <Route path="/hunsu" exact component={HunsuPage} />
+            <Route path="/calendar" exact component={CalendarPage} />
+            <Route path="/info" exact component={InfoPage} />
           </SwipeableRoutes>
           <BottomNavigation style={styles.navigation} value={index} onChange={handleChange} showLabels>
             <BottomNavigationAction label="Main" value="0" icon={<Home />} />
@@ -89,14 +99,9 @@ const App = (props) => {
             <BottomNavigationAction label="Calendar" value="3" icon={<DateRange />} />
             <BottomNavigationAction label="Profile" value="4" icon={<AccountCircle />} />
           </BottomNavigation>
-        </>
+        </Col>
       }
-      {!props.user &&
-        <div className="disallow-chat">
-          <p><Link to="/login">Login</Link> or <Link to="/register">Register</Link> to start chatting!</p>
-        </div>
-      }
-    </div>
+    </>
   );
 }
 
