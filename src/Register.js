@@ -6,6 +6,18 @@ import Login from './Login';
 
 //firestore userDB 등록
 var db = firebase.firestore();
+
+const styles = {
+	fixSize: {
+		height: '600px',
+    width: '350px',
+    borderColot: 'black',
+	},
+	margin: {
+		marginBottom: '40px',
+	},
+};
+
 class Register extends React.Component {
 	constructor(props) {
 		super(props);
@@ -21,45 +33,30 @@ class Register extends React.Component {
 	}
 	handleSubmit = e => {
 		e.preventDefault();
-		const { email, username, password } = this.state;
-		//firebase Auth에 등록
-		firebase
-			.auth()
-			.createUserWithEmailAndPassword(email, password)
-			.then(() => {
-				const user = firebase.auth().currentUser;
-				user
-					.updateProfile({ displayName: username })
-					.then(() => {
-						this.props.history.push('/');
-					})
-					.catch(error => {
-						this.setState({ error });
-					});
-				db.collection("users").doc(user.uid).set({
-					username: username,
-					email: email,
-					crew: null
-				})
-					.then(function (docRef) {
-						console.log("Document written with ID: ", docRef.id);
-					})
-					.catch(function (error) {
-						console.error("Error adding document: ", error);
-					});
-
-			})
-			.catch(error => {
-				this.setState({ error });
-			});
-
-
+        const {email, username, password} = this.state;
+        firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                const user = firebase.auth().currentUser;
+                user
+                    .updateProfile({displayName: username})
+                .then(() => {
+                    this.props.history.push('/main');
+                })
+                .catch(error => {
+                    this.setState({error});
+                });
+                })
+            .catch(error => {
+                this.setState({error});
+            });
 	}
 	render() {
 		const { email, username, password, error } = this.state;
 		return (
-			<div className="auth--container">
-				<h1>Register your account</h1>
+			<div className="auth--container" style={styles.fixSize}>
+				<h2 style={styles.margin}>Register your account</h2>
 				{error && <p className="error-message">{error.message}</p>}
 				<form onSubmit={this.handleSubmit}>
 					<label htmlFor="username">Username</label>
@@ -71,10 +68,11 @@ class Register extends React.Component {
 						type="password"
 						name="password"
 						id="password"
+						style={styles.margin}
 						value={password}
 						onChange={this.handleChange}
 					/>
-					<button className="general-submit" children="Get Started" />
+					<button className="general-submit" style={styles.margin} children="Get Started" />
 					<p>Already have an account? <Link className="login-btn" to="/login">Login here</Link></p>
 				</form>
 			</div>
