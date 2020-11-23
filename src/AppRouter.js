@@ -9,6 +9,7 @@ import Login from './Login';
 import Register from './Register';
 import Create from './hunsu/JSX/Create';
 import PostDetail from './hunsu/JSX/PostDetail';
+import Workout from './main/Workout';
 
 class AppRouter extends React.Component {
 	//Add Contstructor to AppRouter component
@@ -35,6 +36,7 @@ class AppRouter extends React.Component {
 								<Switch>
 									<Route path="/hunsu/post/create" exact component={Create}></Route>
 									<Route path="/hunsu/post/detail" exact component={PostDetail}></Route>
+									<Route path="/main/workout" exact component={Workout} />
 									<Route path="/" render={() => <App user={this.state.user} index={this.props.index} />} />
 								</Switch>
 							</>

@@ -81,7 +81,7 @@ const App = (props) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
-                <Nav.Link onClick={() => firebase.auth().signOut()}href="/login">Logout</Nav.Link>
+                <Nav.Link onClick={() => firebase.auth().signOut()} href="/login">Logout</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Navbar>

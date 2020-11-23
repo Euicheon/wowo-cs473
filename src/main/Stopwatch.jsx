@@ -1,44 +1,31 @@
-import React, { useState } from 'react';
-import ReactStopwatch from 'react-stopwatch';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const styles = {
-  button: {
-    position: 'absolute',
-    bottom: '200px',
-    backgroundColor: "#4CAF50",
-    border: 'none',
-    color: 'white',
-    padding: '20px',
-    textAlign: 'center',
-    textDecoration: 'none',
+  exerciseButton: {
+    width: "150px",
+    height: "150px",
+    padding: "10px 10px",
+    borderRadius: "100px",
+    borderWidth: '2px',
+    borderColor: "#5DB075",
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: '#5DB075',
     display: 'inline-block',
-    fontSize: '16px',
-    borderRadius: '50%',
-  }
+  },
 }
 
-const Stopwatch = () => {
-  const [start, setStart] = useState(false);
-
-  const onClick = () => {
-    setStart(!start)
-  };
-
-  return (
-    <>
-      {start && <ReactStopwatch
-        seconds={0}
-        minutes={0}
-        hours={0}
-        onCallback={() => console.log('Finish')}
-        render={({ formatted }) => (
-            <div>{formatted}</div>)}
-      />}
-      <button style={styles.button} onClick={onClick}>
-        {start ? 'STOP' : 'START'}
+const Stopwatch = () => (
+  <NavLink to='main/workout'>
+    <button
+      type="button"
+      class="btn"
+      style={styles.exerciseButton}
+    >
+      Exercise!
       </button>
-    </>
-  );
-};
+  </NavLink>
+);
 
 export default Stopwatch;
