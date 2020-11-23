@@ -5,8 +5,19 @@ import ReactStopwatch from 'react-stopwatch';
 import PopUp from './PopUp';
 
 const styles = {
-  btnCircle: {
-    marginTop: '400px',
+  stopwatch: {
+    fontStyle: 'italic',
+    fontSize: '50px',
+    fontWeight: 'bold',
+    marginTop: '200px',
+  },
+  beforeMargin: {
+    marginTop: '20vh',
+  },
+  afterMargin: {
+    marginTop: '50vh',
+  },
+  doneButton: {
     width: "150px",
     height: "150px",
     padding: "10px 10px",
@@ -15,70 +26,55 @@ const styles = {
     backgroundColor: "#5DB075",
     fontSize: '20px',
     fontWeight: 'bold',
+    fontStyle: 'italic',
     color: '#FFFFFF',
+  },
+  fixSize: {
+    height: '600px',
+    width: '100%',
+    textAlign: 'center',
   },
 }
 
 const Workout = (props) => {
-  const [timeSpent, setTimeSpent] = useState('00:00:00');
+  const [timeSpent, setTimeSpent] = useState(0);
   const [pop, setPop] = useState(false);
+  const timestamp = props.location.state.timestamp;
 
   const onClick = () => {
     setPop(true)
+    setTimeSpent(new Date().getTime() - timestamp)
   };
 
-  const makeFormat = (h, m, s) => {
-    const hour = h.toString();
-    const min = m.toString();
-    const sec = s.toString();
-    var formatted = '';
-    
-    if (hour.length === 1) {
-      formatted = formatted.concat('0', hour, ':')
-    } else {
-      formatted = formatted.concat(hour, ':')
-    }
-  
-    if (min.length === 1) {
-      formatted = formatted.concat('0', min, ':')
-    } else {
-      formatted = formatted.concat(min, ':')
-    }
-  
-    if (sec.length === 1) {
-      formatted = formatted.concat('0', sec)
-    } else {
-      formatted = formatted.concat(sec)
-    }
-    return formatted
-  }
-
   return (
-    <Col>
-      <ReactStopwatch
-        seconds={0}
-        minutes={0}
-        hours={0}
-        onChange={({hours, minutes, seconds}) => {
-          const hey = makeFormat(hours, minutes, seconds);
-          setTimeSpent(hey)
-        }}
-        render={({ formatted }) => (<div>{formatted}</div>)}
-      />
-      <NavLink to="/main">
-        <button
-          type="button"
-          class="btn"
-          style={styles.btnCircle}
-          onClick={onClick}
-        >
-          Done!
+    <>
+      <Col lg={4} md={6} sm={8}>
+        <div style={styles.fixSize}>
+          {!pop &&
+            <ReactStopwatch
+              seconds={1}
+              minutes={0}
+              hours={0}
+              render={({ formatted }) => (<div style={styles.stopwatch}>{formatted}</div>)}
+            />
+          }
+          <NavLink to="/main">
+            <button
+              type="button"
+              class="btn"
+              style={!pop ? {...styles.doneButton, ...styles.beforeMargin} : {...styles.doneButton, ...styles.afterMargin}}
+              onClick={onClick}
+            >
+              Done!
         </button>
-      </NavLink>
-      {pop &&
-        <PopUp handleSubmit={setPop} timestamp={props.location.state.timestamp} timeSpent={timeSpent} />
+          </NavLink>
+        </div>
+      </Col>
+      {
+        pop &&
+        <PopUp handleSubmit={setPop} timestamp={timestamp} timeSpent={timeSpent} />
       }
-    </Col>
+    </>
   );
 }
 
