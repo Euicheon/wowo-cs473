@@ -29,7 +29,7 @@ const Create = () => {
 
         const posts = firestore.collection('posts');
         posts.add({
-            writer: 'myoons',
+            writer: 'userID',
             title: boardTitle,
             content: boardContent,
             imgPath: await fileRef.getDownloadURL(),

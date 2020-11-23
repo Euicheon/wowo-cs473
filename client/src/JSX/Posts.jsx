@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry from 'react-masonry-css';
 import '../CSS/posts.css'
@@ -24,8 +23,8 @@ const Posts = () => {
 
     const loadPosts = () => {
         
-        var users = firestore.collection('posts');
-        users.get().then(query => {
+        var postList = firestore.collection('posts');
+        postList.get().then(query => {
             
             var fetchPosts = []
             query.forEach(doc => {

@@ -25,12 +25,12 @@ const Post = (props) => {
         'https://www.thoughtco.com/thmb/fZGivPijVE1b0BV0PqywnUzccU0=/1920x1271/filters:no_upscale():max_bytes(150000):strip_icc()/lemur-949422_1920-248f897d117340b2ba827db16a94f4e2.jpg'
     ]
 
-    const handleProps = (info) => {
-        if (info.data.title !== undefined) {setTitle(info.data.title)};
+    const handleProps = (data) => {
+        if (data.title !== undefined) {setTitle(data.title)};
     }
 
-    const handleImgPath = (info) => {
-        if (info.data.imgPath !== undefined) {setImgPath(info.data.imgPath)}
+    const handleImgPath = (data) => {
+        if (data.imgPath !== undefined) {setImgPath(data.imgPath)}
         else {
             var randImage = Math.floor(Math.random() * defaultImages.length)
             setImgPath(defaultImages[randImage])
@@ -38,8 +38,8 @@ const Post = (props) => {
     }
 
     useEffect(() => {
-        handleProps(props.info);
-        handleImgPath(props.info); 
+        handleProps(props.info.data);
+        handleImgPath(props.info.data); 
     }, [])
     
     return (
