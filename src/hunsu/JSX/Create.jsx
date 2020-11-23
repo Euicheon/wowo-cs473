@@ -13,6 +13,7 @@ const Create = () => {
     const [file, setFile] = useState('');
     const [previewURL, setPreViewURL] = useState('');
     const [username, setUserName] = useState('');
+    const [imgPath, setImgPath] = useState('https://firebasestorage.googleapis.com/v0/b/wowo-cs473.appspot.com/o/wowo_logo.png?alt=media&token=fc8dfa4e-777f-4746-9aa0-cca5268e7008');
 
     firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get().then(userdata => {
       console.log('user : ',userdata.data().username);
@@ -29,16 +30,12 @@ const Create = () => {
           return;
         }
 
-        const storageRef = firebase.storage().ref('postImages');
-        const fileRef = storageRef.child(file.name)
-        await fileRef.put(file)
-
         const posts = firebase.firestore().collection('posts');
         posts.add({
             writer: username,
             title: boardTitle,
             content: boardContent,
-            imgPath: await fileRef.getDownloadURL(),
+            imgPath: imgPath,
             timestamp: new Date(),
             whoLikes: [],
             comments: []
@@ -62,7 +59,15 @@ const Create = () => {
       reader.onloadend = () => {
         setFile(currentFile);
         setPreViewURL(reader.result);
+
+        const storageRef = firebase.storage().ref('postImages');
+        storageRef.child(currentFile.name).put(currentFile).then(snapshot => {
+          snapshot.ref.getDownloadURL().then(image => {
+            setImgPath(image)
+          });
+        })
       }
+
       if (currentFile!==undefined) {reader.readAsDataURL(currentFile);}
       else {
         setFile(prevFile);
