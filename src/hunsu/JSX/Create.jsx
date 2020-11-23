@@ -12,7 +12,13 @@ const Create = () => {
     const [title, setTitle] = useState('');
     const [file, setFile] = useState('');
     const [previewURL, setPreViewURL] = useState('');
+    const [username, setUserName] = useState('');
 
+    firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get().then(userdata => {
+      console.log('user : ',userdata.data().username);
+      setUserName(userdata.data().username);
+    })
+    
     const writeBoard = async () => {
 
         const boardTitle = title;
@@ -29,7 +35,7 @@ const Create = () => {
 
         const posts = firebase.firestore().collection('posts');
         posts.add({
-            writer: 'myoons',
+            writer: username,
             title: boardTitle,
             content: boardContent,
             imgPath: await fileRef.getDownloadURL(),
