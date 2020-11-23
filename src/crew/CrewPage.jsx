@@ -6,7 +6,7 @@ import Chatbox from './ChatBox';
 import './CrewPage.css';
 
 var db = firebase.firestore();
-var user = firebase.auth().currentUser;
+// var user = firebase.auth().currentUser;
 
 const styles = {
 	background: {
@@ -132,17 +132,27 @@ const CrewPage = (props) => {
 		setChatRefType(crewID)
 	};
 
-	const getCrewList = () => {
-		var docRef = db.collection("crews");
-		docRef.get().then(function (querySnapshot) {
-			querySnapshot.forEach(function (doc) {
-				// doc.data() is never undefined for query doc snapshots
-				// console.log(doc.id, " => ", doc.data());
-				setCrewList(crewList.concat({ crewID: doc.data().crewid }))
-			});
-		});
-	};
+	// const getCrewList = () => {
+	// 	var docRef = db.collection("crews");
+	// 	docRef.get().then(function (querySnapshot) {
+	// 		querySnapshot.forEach(function (doc) {
+	// 			// doc.data() is never undefined for query doc snapshots
+	// 			// console.log(doc.id, " => ", doc.data());
+	// 			setCrewList(crewList.concat({ crewID: doc.data().crewid }))
+	// 		});
+	// 	});
+	// };
 	useEffect(() => {
+		const getCrewList = async () => {
+			var docRef = db.collection("crews");
+			docRef.get().then(function (querySnapshot) {
+				querySnapshot.forEach(function (doc) {
+					// doc.data() is never undefined for query doc snapshots
+					// console.log(doc.id, " => ", doc.data());
+					setCrewList(crewList.concat({ crewID: doc.data().crewid }))
+				});
+			});
+		};
 		getCrewList();
 		if (props.crew) {
 			setChatRefType(props.crew)
@@ -152,7 +162,7 @@ const CrewPage = (props) => {
 		return () => {
 			// console.log('컴포넌트가 화면에서 사라짐');
 		};
-	}, []);
+	},[]);
 	// console.log("??", props.crew, crew, props.user.uid, chatRefType)
 	if ((props.crew || crew) && (!chatRefType)) {
 		setChatRefType(props.crew)
