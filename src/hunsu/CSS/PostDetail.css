@@ -37,7 +37,10 @@
 }
 
 .commentBlock {
-    margin-top: 50px;
+    margin-top: 30px;
+    width: 90%;
+    height: 90%;
+    margin-left: 10px;
 }
 
 .postdetailcrewname {
@@ -50,4 +53,9 @@
 .postdetailtimestamp {
     text-align: right;
     font-size: 13px;
+}
+
+.realcomments {
+    width: 90%;
+    margin-left: 10px;
 }

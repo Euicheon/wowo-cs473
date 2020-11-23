@@ -2,12 +2,14 @@
     text-align: left;
     font-weight: 1000;
     font-style: italic;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .postlikes {
     text-align: right;
     font-weight: 1000;
     font-style: italic;
-    font-size: 13px;
+    font-size: 15px;
+    float: right;
+    margin-right: 3px;
 }

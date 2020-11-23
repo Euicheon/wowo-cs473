@@ -68,13 +68,12 @@ const Posts = () => {
 
 
     return (
-        <div className="row" id="scrollableDiv" style={{height: '600px', width: '370px', overflow: 'auto'}}>
-            <h2 className='titleHunsu'>Hunsu</h2>
-            <NavLink to='/post/create'> <Button className="createButton">Create</Button> </NavLink>
-            
-            <div className="row">
-                <input placeholder="Search" className="searchBar" onChange={onSearchChange}/>
-
+        <div>
+            <div className='container-SearchCreate'>
+                <div><NavLink to='/post/create'> <Button className="createButton">Create</Button> </NavLink></div>
+                <div><input placeholder="Search" className="searchBar" onChange={onSearchChange}/></div>
+            </div>
+            <div id="scrollableDiv" className='scroll-container'>
                 <div className="col-md-12">
                     <InfiniteScroll
                         scrollableTarget="scrollableDiv"
@@ -94,7 +93,6 @@ const Posts = () => {
                 </div>
             </div>
         </div>
-
     );
 }
 
