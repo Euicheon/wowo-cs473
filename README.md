@@ -7,7 +7,7 @@
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
   <a href="#" target="_blank">
-    <img alt="License: CS473 20F Team AmonGus" src="https://img.shields.io/github/license" />
+    <img alt="License: CS473 20F Team AmonGus" src="https://img.shields.io/badge/License-AmonGus-red.svg" />
   </a>
 </p>
 
