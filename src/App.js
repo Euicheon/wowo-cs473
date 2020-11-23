@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, NavLink } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Col, Navbar, Nav, } from 'react-bootstrap';
 
 import MainPage from './main/MainPage';
@@ -89,17 +89,19 @@ const App = (props) => {
               </Nav>
             </Navbar.Collapse>
           </Navbar>
+
           <Route path="/main" component={MainPage} />
           <Route path="/crew" component={() => <CrewPage user={props.user} crew={crew} />} />
           <Route path="/hunsu" component={Posts} />
           <Route path="/calendar" component={CalendarPage} />
           <Route path="/info" component={InfoPage} />
+
           <BottomNavigation style={styles.navigation} value={index} onChange={handleChange} showLabels>
-            <NavLink to='/main'> <BottomNavigationAction label="Main" value="0" icon={<Home />} /></NavLink>
-            <NavLink to='/crew'> <BottomNavigationAction label="Crew" value="1" icon={<Forum />} /></NavLink>
-            <NavLink to='/hunsu'> <BottomNavigationAction label="Hunsu" value="2" icon={<Dashboard />} /></NavLink>
-            <NavLink to='/calendar'> <BottomNavigationAction label="Calendar" value="3" icon={<DateRange />} /></NavLink>
-            <NavLink to='/info'> <BottomNavigationAction label="Profile" value="4" icon={<AccountCircle />} /></NavLink>
+            <BottomNavigationAction label="Main" value="0" icon={<Home />} />
+            <BottomNavigationAction label="Crew" value="1" icon={<Forum />} />
+            <BottomNavigationAction label="Hunsu" value="2" icon={<Dashboard />} />
+            <BottomNavigationAction label="Calendar" value="3" icon={<DateRange />} />
+            <BottomNavigationAction label="Profile" value="4" icon={<AccountCircle />} />
           </BottomNavigation>
         </Col>
       }

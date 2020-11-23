@@ -68,8 +68,7 @@ const Posts = () => {
 
 
     return (
-        <div className="row">
-            
+        <div className="row" id="scrollableDiv" style={{height: '600px', width: '370px', overflow: 'auto'}}>
             <h2 className='titleHunsu'>Hunsu</h2>
             <NavLink to='/post/create'> <Button className="createButton">Create</Button> </NavLink>
             
