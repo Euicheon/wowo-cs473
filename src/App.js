@@ -74,7 +74,7 @@ const App = (props) => {
   return (
     <>
       {props.user &&
-        <Col lg={4} md={6} sm={8}>
+        <Col lg={3.5} md={5.5} sm={7.5}>
           <Navbar bg="light" expand="sm" align="center" class="navbar-custom">
             {/* <Navbar.Brand>wowo</Navbar.Brand> */}
             <a class="navbar-brand" href="/">
