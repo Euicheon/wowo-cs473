@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'bootstrap';
 import { NavLink } from 'react-router-dom'; 
 import firebase from '../firebase';
 
@@ -72,8 +71,8 @@ const PopUp = (props) => {
   return (
     <div style={styles.background}>
       <div style={styles.popup}>
-        <button onClick={onShare}>Share</button>
-        <button onClick={onCancel}>Cancel</button>
+        <NavLink to="/crew"><button onClick={onShare}>Share</button></NavLink>
+        <NavLink to="/main"><button onClick={onCancel}>Cancel</button></NavLink>
       </div>
     </div>
   )
