@@ -43,8 +43,8 @@ class AppRouter extends React.Component {
 							<Route path="/" render={() => <App user={this.state.user} index={this.props.index} />} />
 							<Route path="/login" exact component={Login} />
 							<Route path="/register" exact component={Register} />
-							<Route path="/hunsu/post/create" exact component={Create}></Route>
-							<Route path="/hunsu/post/detail" exact component={PostDetail}></Route>
+							<Route path="/post/create" exact component={Create}></Route>
+							<Route path="/post/detail" exact component={PostDetail}></Route>
 						</Switch>
 					</div>
 				</div>

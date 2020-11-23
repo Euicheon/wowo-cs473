@@ -1,13 +1,10 @@
 import React, {useState} from "react";
 import {Button} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 import '../CSS/create.css';
-
-axios.defaults.withCredentials = true;
-const headers = { withCredentials: true };
+import firebase from '../../firebase';
 
 const Create = () => {
 
@@ -16,9 +13,7 @@ const Create = () => {
     const [file, setFile] = useState('');
     const [previewURL, setPreViewURL] = useState('');
 
-    const writeBoard = () => {
-        let url;
-        let send_param;
+    const writeBoard = async () => {
 
         const boardTitle = title;
         const boardContent = data;
@@ -26,33 +21,29 @@ const Create = () => {
         if (boardTitle === undefined || boardTitle === "") {
           alert("Write the title");
           return;
-        } else if (boardContent === undefined || boardContent === "") {
-          alert("Write the contents");
-          return;
         }
 
-        url = "http://localhost:8080/post/write";
-        send_param = {
-            headers,
-            "_id" : 'myoons',
-            "title": boardTitle,
-            "content": boardContent,
-        };
-    
-        axios.post(url, send_param)
-          // Successed
-          .then(returnData => {
-            if (returnData.data.message) {
-              alert(returnData.data.message);
-              window.location.href = "/hunsu";
-            } else {
-              alert("Posting Failed");
-            }
+        const storageRef = firebase.storage().ref('postImages');
+        const fileRef = storageRef.child(file.name)
+        await fileRef.put(file)
+
+        const posts = firebase.firestore().collection('posts');
+        posts.add({
+            writer: 'myoons',
+            title: boardTitle,
+            content: boardContent,
+            imgPath: await fileRef.getDownloadURL(),
+            timestamp: new Date(),
+            whoLikes: [],
+            comments: []
+        }).then(docRef => {
+            console.log('New Post Created : ', docRef.id)
+            alert('New Post Created');
+            window.location.href = "/hunsu";
+          }).catch(err => {
+            console.log('New Posting Failed : ',err)
+            alert("Posting Failed");
           })
-          // Error
-          .catch(err => {
-            console.log(err);
-          });
     };
 
     const handleTitleChange = evt => {setTitle(evt.target.value)};
@@ -60,12 +51,18 @@ const Create = () => {
     const handleFileOnChange = evt => {
       evt.preventDefault();
       let reader = new FileReader();
-      let file = evt.target.files[0];
+      let prevFile = file;
+      let currentFile = evt.target.files[0];
       reader.onloadend = () => {
-        setFile(file);
+        setFile(currentFile);
         setPreViewURL(reader.result);
       }
-      reader.readAsDataURL(file);
+      if (currentFile!==undefined) {reader.readAsDataURL(currentFile);}
+      else {
+        setFile(prevFile);
+        alert("Canceled changing image");
+        console.log(file)
+      }
     }
     
     let profile_preview = null;

@@ -35,3 +35,7 @@
 .root .expandOpen {
     transform: rotate(180deg);
 }
+
+.commentBlock {
+    margin-top: 50px;
+}
