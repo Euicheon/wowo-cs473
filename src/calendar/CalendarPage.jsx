@@ -1,4 +1,6 @@
 import React from 'react';
+import './Calendar.css';
+import calendar from './demo_calendar.jpeg';
 
 const styles = {
 	align: {
@@ -11,8 +13,8 @@ const styles = {
 
 const CalendarPage = () => {
 	return (
-		<div style={styles.align}>
-			CalendarPage
+		<div class = "calendar_img">
+			<img src={calendar} style={styles.align} alt='' />
 		</div>
 	);
 };

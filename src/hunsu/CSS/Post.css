@@ -1,5 +1,7 @@
-.description {
+.postDescription {
     text-align: left;
-    font-weight: bold;
+    font-weight: 1000;
     font-style: italic;
+    font-size: 13px;
 }
+

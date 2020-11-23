@@ -35,6 +35,20 @@
   justify-content: center;
 }
 
+.logo-image{
+  width: 46px;
+  height: 46px;
+  border-radius: 5%;
+  overflow: hidden;
+  align-items: center;
+}
+
+.navbar-custom {
+  color: #FFFFFF;
+  background-color: #54B9FF;
+  align-items: center;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
