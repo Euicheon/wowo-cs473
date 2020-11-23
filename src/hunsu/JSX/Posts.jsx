@@ -78,6 +78,7 @@ const Posts = () => {
 
                 <div className="col-md-12">
                     <InfiniteScroll
+                        scrollableTarget="scrollableDiv"
                         dataLength={posts.length}
                         next={loadPosts}
                         hasMore={hasmore}

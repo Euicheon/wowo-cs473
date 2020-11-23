@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
-import SwipeableRoutes from 'react-swipeable-routes';
+import { Route, NavLink } from 'react-router-dom';
 import { Col, Navbar, Nav, } from 'react-bootstrap';
 
 import MainPage from './main/MainPage';
@@ -53,11 +52,11 @@ const App = (props) => {
       } else {
         // doc.data() will be undefined in this case
         // console.log(doc);
-				console.log("No such document!");
-			}
-		}).catch(function(error) {
-			console.log("Error getting document:", error);
-		});
+        console.log("No such document!");
+      }
+    }).catch(function (error) {
+      console.log("Error getting document:", error);
+    });
   }
   // console.log("beforeUSE",props)
   // useEffect(() => {
@@ -76,7 +75,7 @@ const App = (props) => {
     <>
       {props.user &&
         <Col lg={4} md={6} sm={8}>
-          <Navbar bg="light" expand="sm" align = "center" class = "navbar-custom">
+          <Navbar bg="light" expand="sm" align="center" class="navbar-custom">
             {/* <Navbar.Brand>wowo</Navbar.Brand> */}
             <a class="navbar-brand" href="/">
               <div class="logo-image">
@@ -84,25 +83,23 @@ const App = (props) => {
               </div>
             </a>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav" style={{flexDirection: 'row',}}>
+            <Navbar.Collapse id="basic-navbar-nav" style={{ flexDirection: 'row', }}>
               <Nav className="ml-auto">
                 <Nav.Link onClick={() => firebase.auth().signOut()} href="/login">Logout</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
-          <SwipeableRoutes animateHeight={true} style={styles.fixSize} index={index} onChangeIndex={handleChangeIndex} enableMouseEvents>
-            <Route path="/main" component={MainPage} />
-            <Route path="/crew" component={() => <CrewPage user={props.user} crew={crew} />} />
-            <Route path="/hunsu" component={Posts} />
-            <Route path="/calendar" component={CalendarPage} />
-            <Route path="/info" component={InfoPage} />
-          </SwipeableRoutes>
+          <Route path="/main" component={MainPage} />
+          <Route path="/crew" component={() => <CrewPage user={props.user} crew={crew} />} />
+          <Route path="/hunsu" component={Posts} />
+          <Route path="/calendar" component={CalendarPage} />
+          <Route path="/info" component={InfoPage} />
           <BottomNavigation style={styles.navigation} value={index} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Main" value="0" icon={<Home />} />
-            <BottomNavigationAction label="Crew" value="1" icon={<Forum />} />
-            <BottomNavigationAction label="Hunsu" value="2" icon={<Dashboard />} />
-            <BottomNavigationAction label="Calendar" value="3" icon={<DateRange />} />
-            <BottomNavigationAction label="Profile" value="4" icon={<AccountCircle />} />
+            <NavLink to='/main'> <BottomNavigationAction label="Main" value="0" icon={<Home />} /></NavLink>
+            <NavLink to='/crew'> <BottomNavigationAction label="Crew" value="1" icon={<Forum />} /></NavLink>
+            <NavLink to='/hunsu'> <BottomNavigationAction label="Hunsu" value="2" icon={<Dashboard />} /></NavLink>
+            <NavLink to='/calendar'> <BottomNavigationAction label="Calendar" value="3" icon={<DateRange />} /></NavLink>
+            <NavLink to='/info'> <BottomNavigationAction label="Profile" value="4" icon={<AccountCircle />} /></NavLink>
           </BottomNavigation>
         </Col>
       }
