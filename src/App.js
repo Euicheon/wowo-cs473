@@ -19,6 +19,7 @@ import {
 import firebase from './firebase';
 
 import './App.css';
+import logo_img from './wowo_logo.png';
 
 var db = firebase.firestore();
 
@@ -76,8 +77,13 @@ const App = (props) => {
     <>
       {props.user &&
         <Col lg={4} md={6} sm={8}>
-          <Navbar bg="light" expand="sm">
-            <Navbar.Brand>wowo</Navbar.Brand>
+          <Navbar bg="light" expand="sm" align = "center" class = "navbar-custom">
+            {/* <Navbar.Brand>wowo</Navbar.Brand> */}
+            <a class="navbar-brand" href="/">
+              <div class="logo-image">
+                <img src={logo_img} class="img-fluid" />
+              </div>
+            </a>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
