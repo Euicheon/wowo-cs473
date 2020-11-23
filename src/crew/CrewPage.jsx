@@ -58,21 +58,26 @@ const CrewPage = (props) => {
 			chatRef.push(chat);
 			setMessage('');
 		}
+		// this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+	}
+
+	const alertPopup = () => {
+		alert("Selected crew is full now!")
 	}
 
 	const CrewItem = ({ item }) => (
-		<li>
+		<article className='mini-card' onClick={() => item.availability ? crewSignUp(item.crewID) : alertPopup()}>
 			<div>{item.crewID}</div>
-			<button onClick={() => crewSignUp(item.crewID)}>JOIN</button>
-		</li>
+			<div>{item.members.length} / {item.member_limit} </div>
+		</article>
 	);
 
 	const CrewListUI = ({ list }) => (
-		<ul>
+		<>
 			{list.map(item => (
 				<CrewItem item={item}></CrewItem>
 			))}
-		</ul>
+		</>
 	);
 
 	const toggleLeaderboard = () => {
@@ -149,7 +154,11 @@ const CrewPage = (props) => {
 				querySnapshot.forEach(function (doc) {
 					// doc.data() is never undefined for query doc snapshots
 					console.log(doc.id, " => ", doc.data());
-					setCrewList(crewList => [...crewList,{ crewID: doc.data().crewid }])
+					var availability = true;
+					if(doc.data().member_limit === doc.data().members.length){
+						availability = false
+					}
+					setCrewList(crewList => [...crewList,{ crewID: doc.data().crewid, member_limit: doc.data().member_limit ,members: doc.data().members, availability: availability}])
 				});
 			});
 		};
