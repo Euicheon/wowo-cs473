@@ -1,9 +1,36 @@
-.row {
-    text-align: center;
+.col-md-12 {
+    margin-right: 7px;
+}
+.searchBar{
+    width: 100%;
 }
 
-.searchBar{
-    text-align: center;
-    width: 50%;
-    align-self: center;
+.searchcreate{
+    flex-direction: row;
+}
+
+.searchBar {
+    border-radius: 2px;
+    border: 2px #123456 solid;
+    margin-top: 10px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.row .createButton {
+    width: 60px;
+    height: 33px;
+    font-size: 13px;
+    margin-right: 15px;
+    margin-top: 15px;
+    background-color: #123456;
+}
+
+.row .title{
+    color: #123456;
+    margin-top: 10px;
+    font-style: italic;
+    margin-left: 130px;
+    margin-right: auto;
 }

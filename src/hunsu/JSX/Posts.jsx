@@ -3,10 +3,12 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry from 'react-masonry-css';
 import '../CSS/posts.css'
 
-import {Input} from 'mdbreact';
 import {Loader} from '../components/Loader';
 import Post from './Post';
 import firebase from '../../firebase';
+
+import {Button} from 'react-bootstrap';
+import {NavLink} from "react-router-dom";
 
 const Posts = () => {
     
@@ -61,13 +63,19 @@ const Posts = () => {
     const onSearchChange = evt => {
         let filteredPosts = allPosts.filter(post => {return post.data.title.toLowerCase().includes(evt.target.value.toLowerCase())})
         setPosts(filteredPosts);
+        setHasMore(false);
     }
 
 
     return (
         <div className="row">
-            <div>
-            <Input label="Serach Posts" onChange={onSearchChange}/>
+            
+            <h2 className='title'>Hunsu</h2>
+            <NavLink to='/post/create'> <Button className="createButton">Create</Button> </NavLink>
+            
+            <div className="row">
+                <input placeholder="Search" className="searchBar" onChange={onSearchChange}/>
+
                 <div className="col-md-12">
                     <InfiniteScroll
                         dataLength={posts.length}
@@ -86,6 +94,7 @@ const Posts = () => {
                 </div>
             </div>
         </div>
+
     );
 }
 

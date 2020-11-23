@@ -4,7 +4,7 @@ import SwipeableRoutes from 'react-swipeable-routes';
 
 import MainPage from './main/MainPage';
 import CrewPage from './crew/CrewPage';
-import HunsuPage from './hunsu/HunsuPage';
+import Posts from './hunsu/JSX/Posts';
 import CalendarPage from './calendar/CalendarPage';
 import InfoPage from './info/InfoPage';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
@@ -78,7 +78,7 @@ const App = (props) => {
           <SwipeableRoutes animateHeight={true} style={styles.fixSize} index={index} onChangeIndex={handleChangeIndex} enableMouseEvents>
             <Route path="/main" component={MainPage} />
             <Route path="/crew" component={() => <CrewPage user={props.user} crew={crew} />} />
-            <Route path="/hunsu" component={HunsuPage} />
+            <Route path="/hunsu" component={Posts} />
             <Route path="/calendar" component={CalendarPage} />
             <Route path="/info" component={InfoPage} />
           </SwipeableRoutes>

@@ -19,19 +19,16 @@ import firebase from '../../firebase';
 
 const PostDetail = (props) => {
 
-    console.log('ID : ', props.location.state.id);
-    console.log('DATA : ', props.location.state.data);
-
-    const id = props.location.state.id;
-    const writer = props.location.state.data.writer;
-    const title = props.location.state.data.title;
-    const content = props.location.state.data.content;
-    const imgPath = props.location.state.data.imgPath;
-    const timestamp =  props.location.state.data.timestamp;
+    const [postId, setPostId] = useState(''); 
+    const [writer, setWriter] = useState('');  
+    const [title, setTitle] = useState(''); 
+    const [content, setContent] = useState(''); 
+    const [imgPath, setImgPath] = useState(''); 
+    const [timestamp, setTimestamp] = useState((new Date()).toString()); 
 
     const [expanded, setExpanded] = useState(false);
     const [comments, setComments] = useState([]);
-    const [likeArray, setLikeArray] = useState(props.location.state.data.whoLikes);
+    const [likeArray, setLikeArray] = useState([]);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -39,9 +36,37 @@ const PostDetail = (props) => {
 
     const posts = firebase.firestore().collection("posts");
 
+    const parsePost = () => {
+
+        posts.doc(props.location.state.id).get().then(post => {
+            
+            setPostId(post.id);
+            setWriter(post.data().writer[0].toUpperCase());
+            setTitle(post.data().title);
+            setContent(post.data().content);
+            setImgPath(post.data().imgPath);
+            setTimestamp(post.data().timestamp.toDate().toString().slice(0,21));
+            setLikeArray(post.data().whoLikes);
+            
+            const commentArray = post.data().comments;
+
+            for (var i = 0; i < commentArray.length; i++) {
+                const tempComment = commentArray[i];
+                const newComment = {
+                    authorUrl: tempComment.authorUrl,
+                    avatarUrl: tempComment.avatarUrl,
+                    createdAt: tempComment.createdAt.toDate(),
+                    fullName: tempComment.fullName,
+                    text: tempComment.text
+                }
+                setComments(prev => [ ...prev, newComment]);
+            }
+        })
+    }
+
     const handleLike = () => {
 
-        posts.doc(id).update({
+        posts.doc(props.location.state.id).update({
             whoLikes: [...likeArray, 'userID']
           });
 
@@ -54,24 +79,9 @@ const PostDetail = (props) => {
         console.log('Removed ARRAY: ',removedArray)
         
         setLikeArray(removedArray);
-        posts.doc(id).update({
+        posts.doc(props.location.state.id).update({
             whoLikes: removedArray
         });
-    }
-
-    const parseComments = (commentList) => {
-
-        for (var i = 0; i < commentList.length; i++) {
-            const tempComment = commentList[i];
-            const newComment = {
-                authorUrl: tempComment.authorUrl,
-                avatarUrl: tempComment.avatarUrl,
-                createdAt: tempComment.createdAt.toDate(),
-                fullName: tempComment.fullName,
-                text: tempComment.text
-            }
-            setComments(prev => [ ...prev, newComment]);
-        }
     }
 
     const handleComment = (commentText) => {
@@ -85,52 +95,62 @@ const PostDetail = (props) => {
         }
 
         setComments([ ...comments, newComment]);
-        posts.doc(id).update({
+        posts.doc(props.location.state.id).update({
             comments: [...comments, newComment]
         });
     }
 
     useEffect(() => {
-        parseComments(props.location.state.data.comments);
+        parsePost()
     }, []);
+
+    const commentStyle = {// Use base styles of btn and override background to red
+        btn: base => ({
+            ...base,
+            background: '#123456',
+        }),
+        comment: base => ({ ...base }),
+        textarea: base => ({ ...base }),
+    }
 
     return ( 
         <div>
             <Card className='root'>
-            <CardHeader
-                avatar={<Avatar className='avatar'> {writer[0].toUpperCase()} </Avatar>}
-                title={<span className='title'>{title}</span>}
-                subheader={<span className='createdAt'>{timestamp.toDate().toDateString()}</span>}
-            />
-            <img src={imgPath} alt='' className="img-fluid"/>
-            <CardActions disableSpacing>
-                {likeArray.includes('userID') 
-                ?   <IconButton aria-label="remove from favorites" onClick={cancelLike}> 
-                        <FavoriteIcon/>
+                <CardHeader
+                    avatar={<Avatar className='avatar'> {writer} </Avatar>}
+                    title={<span className='title'>{title}</span>}
+                    subheader={<span className='createdAt'>{timestamp}</span>}
+                />
+                <img src={imgPath} alt={postId} className="img-fluid"/>
+                <CardActions disableSpacing>
+                    {likeArray.includes('userID') 
+                    ?   <IconButton aria-label="remove from favorites" onClick={cancelLike}> 
+                            <FavoriteIcon/>
+                        </IconButton>
+                    
+                    :   <IconButton aria-label="add to favorites" onClick={handleLike}> 
+                            <FavoriteBorderIcon/>
+                        </IconButton>}
+                    {likeArray.length}
+                    <IconButton className={clsx('expand', {'expandOpen': expanded})} onClick={handleExpandClick} aria-expanded={expanded} aria-label="show more">
+                        <ExpandMoreIcon/>
                     </IconButton>
-                
-                :   <IconButton aria-label="add to favorites" onClick={handleLike}> 
-                        <FavoriteBorderIcon/>
-                    </IconButton>}
-                {likeArray.length}
-                <IconButton className={clsx('expand', {'expandOpen': expanded})} onClick={handleExpandClick} aria-expanded={expanded} aria-label="show more">
-                    <ExpandMoreIcon/>
-                </IconButton>
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                    <ReactQuill theme="bubble" className='editor' value={content} readOnly={true}/>
-                    </Typography>
-                </CardContent>
-            </Collapse>
-        </Card>
+                </CardActions>
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                        <ReactQuill theme="bubble" className='editor' value={content} readOnly={true}/>
+                        </Typography>
+                    </CardContent>
+                </Collapse>
+            </Card>
 
             <div className='commentBlock'>
                 <CommentsBlock
                 comments={comments}
                 signinUrl={'/login'}
                 isLoggedIn={true}
+                styles={commentStyle}
                 onSubmit={commentText => {
                     if (commentText.length > 0) { handleComment(commentText)
                     console.log('submit:', commentText);
