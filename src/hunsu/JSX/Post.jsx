@@ -12,7 +12,6 @@ const Post = (props) => {
     }
 
     const handleImgPath = (data) => {
-        console.log('heyhey : ',data.imgPath)
         if (data.imgPath !== undefined) {setImgPath(data.imgPath)}
     }
 

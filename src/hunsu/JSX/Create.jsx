@@ -15,7 +15,11 @@ const Create = () => {
     const [username, setUserName] = useState('');
     const [imgPath, setImgPath] = useState('https://firebasestorage.googleapis.com/v0/b/wowo-cs473.appspot.com/o/wowo_logo.png?alt=media&token=fc8dfa4e-777f-4746-9aa0-cca5268e7008');
 
-    firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get().then(userdata => {
+    const rtdb = firebase.database();
+    const db = firebase.firestore();
+    const user = firebase.auth().currentUser;
+
+    db.collection('users').doc(user.uid).get().then(userdata => {
       console.log('user : ',userdata.data().username);
       setUserName(userdata.data().username);
     })
@@ -29,6 +33,18 @@ const Create = () => {
           alert("Write the title");
           return;
         }
+
+        db.collection("users").doc(user.uid).get().then(doc => {
+
+            rtdb.ref().child(doc.data().crew).push({
+              message: "[SYSTEM] " + username + " wrote a new post   " + 'Title : ' + title,
+              user: 'system',
+              timestamp: new Date().getTime()
+            })
+          })
+          .catch(function (error) {
+            console.error("Error getting document: ", error);
+          });
 
         const posts = firebase.firestore().collection('posts');
         posts.add({
@@ -75,7 +91,7 @@ const Create = () => {
         console.log(file)
       }
     }
-    
+
     let profile_preview = null;
     if (file !== '') {profile_preview = <img className='profile_preview' src={previewURL} alt={title} />}
     else {profile_preview = <div className='empty'> <br/> <br/> Click to upload image</div>}
