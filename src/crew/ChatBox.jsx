@@ -37,7 +37,7 @@ class Chatbox extends React.Component{
 		this.scrollToBottom()
 	}
 	scrollToBottom = () => {
-		this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+		this.messagesEnd.scrollIntoView({ behavior: "smooth" ,block: 'nearest', inline: 'start'});
 	}
 	render(){
 		return(
@@ -49,7 +49,7 @@ class Chatbox extends React.Component{
 							<li key={chat.id}>
 								<div className={chat.isMe ? "mymsg" : "othermsg"}>
 									{!chat.isMe && 
-										<strong>{chat.user+':'}</strong>
+										<strong>{chat.user+': '}</strong>
 									}
 									{chat.message}
 								</div>
