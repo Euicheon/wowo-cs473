@@ -26,6 +26,7 @@ const PostDetail = (props) => {
     const [imgPath, setImgPath] = useState(''); 
     const [timestamp, setTimestamp] = useState((new Date()).toString()); 
     const [username, setUserName] = useState('');
+    const [crewname, setCrewName] = useState('');
 
     const [expanded, setExpanded] = useState(false);
     const [comments, setComments] = useState([]);
@@ -42,6 +43,7 @@ const PostDetail = (props) => {
         firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get().then(userdata => {
             console.log('user : ',userdata.data().username);
             setUserName(userdata.data().username);
+            setCrewName(userdata.data().crew);
         })
 
         posts.doc(props.location.state.id).get().then(post => {
@@ -51,7 +53,7 @@ const PostDetail = (props) => {
             setTitle(post.data().title);
             setContent(post.data().content);
             setImgPath(post.data().imgPath);
-            setTimestamp(post.data().timestamp.toDate().toString().slice(0,21));
+            setTimestamp(post.data().timestamp.toDate().toString().slice(0,15));
             setLikeArray(post.data().whoLikes);
             
             const commentArray = post.data().comments;
@@ -96,7 +98,7 @@ const PostDetail = (props) => {
             authorUrl: 'https://www.w3schools.com/w3css/img_lights.jpg',
             avatarUrl: 'https://www.w3schools.com/w3css/img_lights.jpg',
             createdAt: new Date(),
-            fullName: username,
+            fullName: username + ' - ' + crewname,
             text: commentText
         }
 
@@ -125,7 +127,7 @@ const PostDetail = (props) => {
                 <CardHeader
                     avatar={<Avatar className='avatar'> {writer} </Avatar>}
                     title={<span className='title'>{title}</span>}
-                    subheader={<span className='createdAt'>{timestamp}</span>}
+                    subheader={<span className='createdAt'>{<div><span className='postdetailcrewname'>{crewname}</span><div className='postdetailtimestamp'>{timestamp}</div></div>}</span>}
                 />
                 <img src={imgPath} alt={postId} className="img-fluid"/>
                 <CardActions disableSpacing>

@@ -12,7 +12,6 @@ const Post = (props) => {
     }
 
     const handleImgPath = (data) => {
-        console.log('heyhey : ',data.imgPath)
         if (data.imgPath !== undefined) {setImgPath(data.imgPath)}
     }
 
@@ -25,13 +24,12 @@ const Post = (props) => {
         <div className="row">
             <div className="col-md-12 px-0">
                 <div className="rounded-lg overflow-hidden">
-                {/*<div className='description'>♥{props.info.data.whoLikes.length}</div>*/}
                     <NavLink to={{
                         pathname: '/post/detail',
                         state: props.info}}>
                         <img src={imgPath} alt={props.info.id} className="img-fluid"/>
                     </NavLink>
-                    <div className='postDescription'>{title}</div>
+                    <div className='postDescription'>{title}<span className='postlikes'>♥{props.info.data.whoLikes.length}</span></div>
                 </div>
             </div>
         </div>

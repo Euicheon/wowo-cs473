@@ -6,7 +6,7 @@
 .root .title {
     font-style: italic;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 27px;
 }
 
 .root .avatar {
@@ -38,4 +38,16 @@
 
 .commentBlock {
     margin-top: 50px;
+}
+
+.postdetailcrewname {
+    color: black;
+    font-weight: bolder;
+    font-size: 18px;
+    text-align: right;
+}
+
+.postdetailtimestamp {
+    text-align: right;
+    font-size: 13px;
 }
