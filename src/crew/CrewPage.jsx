@@ -9,16 +9,23 @@ var db = firebase.firestore();
 var user = firebase.auth().currentUser;
 
 const styles = {
-	align: {
-		backgroundColor: 'skyblue',
-		textAlign: 'center',
-		height: '650px',
-		width: '400px',
-		margin: 'auto',
+	background: {
+		position: 'fixed',
+		zIndex: '1',
+		width: '100%',
+		height: '100%',
+		backgroundColor: 'rgba(0, 0, 0, 0.25)',
+	},
+	popup: {
 		display: 'flex',
 		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'center',
+		backgroundColor: 'white',
+		position: 'absolute',
+		top: '20%',
+		left: '30%',
+		width: '40%',
+		padding: '20px',
+		borderRadius: '5px',
 	},
 };
 
@@ -33,7 +40,7 @@ const CrewPage = (props) => {
 	const [crewList, setCrewList] = useState([]);
 	const [chatRefType, setChatRefType] = useState('');
 	const [showLeaderboard, setShowLeaderboard] = useState(false);
-
+	const [crewdata, setCrewdata] = useState([]);
 	const handleChange = e => {
 		setMessage(e.target.value)
 	}
@@ -69,19 +76,36 @@ const CrewPage = (props) => {
 	);
 
 	const toggleLeaderboard = () => {
-		setShowLeaderboard(!showLeaderboard)
-		console.log("showLeaderboard", showLeaderboard)
-	} 
+		updateCrewdata(crew);
+		// console.log("showLeaderboard", showLeaderboard);
+	}
 
+	const updateCrewdata = (crewid) => {
+		const userRef = db.collection("users");
+		var tempcrewdata = []
+		db.collection("crews").doc('test').get()
+			.then(function (doc) {
+				const members = doc.data().members;
+				members.forEach(function (uid) {
+					userRef.doc(uid).get().then(e =>
+						tempcrewdata.push({ username: e.data().username, points: e.data().points })
+					)
+				});
+				setCrewdata(tempcrewdata);
+				setShowLeaderboard(!showLeaderboard);
+			}
+			)
+		// console.log('hihi', tempcrewdata);
+	}
 	// handleCrewItemClick = e => {
 	// 	e.preventDefault();
 	// 	crewSignUp(e.crewID)
 	// }
 	//리더보드를 팝업으로 구성 -> css에서 팝업 디자인으로 해주면 됨
-	const LeaderboardPopup = (crewdata) => (
-		<div className='popup'>
-			<div className='popup_inner'>
-				<Leaderboard crewdata={crewdata}></Leaderboard>
+	const LeaderboardPopup = (props) => (
+		<div style={styles.background}>
+			<div style={styles.popup}>
+				<Leaderboard onSubmit={props.closePopup} crewdata={props.crewdata}></Leaderboard>
 			</div>
 		</div>
 	);
@@ -100,6 +124,10 @@ const CrewPage = (props) => {
 				console.error("Error adding document: ", error);
 			});
 
+		var crewRef = db.collection("crews").doc(crewID);
+		crewRef.update({
+			members: firebase.firestore.FieldValue.arrayUnion(user.uid)
+		})
 		setCrew(crewID)
 		setChatRefType(crewID)
 	};
@@ -109,30 +137,36 @@ const CrewPage = (props) => {
 		docRef.get().then(function (querySnapshot) {
 			querySnapshot.forEach(function (doc) {
 				// doc.data() is never undefined for query doc snapshots
-				console.log(doc.id, " => ", doc.data());
+				// console.log(doc.id, " => ", doc.data());
 				setCrewList(crewList.concat({ crewID: doc.data().crewid }))
 			});
 		});
 	};
 	useEffect(() => {
 		getCrewList();
-		if(props.crew){
+		if (props.crew) {
 			setChatRefType(props.crew)
 			setCrew(props.crew)
 		}
-		console.log('컴포넌트가 화면에 나타남', crew);
+		// console.log('컴포넌트가 화면에 나타남', crew);
 		return () => {
-		  console.log('컴포넌트가 화면에서 사라짐');
+			// console.log('컴포넌트가 화면에서 사라짐');
 		};
-	  }, []);
-	console.log("??",props.crew, crew, props.user.uid,chatRefType)
-	if((props.crew||crew)&&(!chatRefType)){
+	}, []);
+	// console.log("??", props.crew, crew, props.user.uid, chatRefType)
+	if ((props.crew || crew) && (!chatRefType)) {
 		setChatRefType(props.crew)
 	}
 	return (
 		<div className="home--container">
 			<h1>Welcome to the chat!</h1>
-			{(props.user && (crew||props.crew)) &&
+			{showLeaderboard &&
+				<LeaderboardPopup
+					closePopup={setShowLeaderboard}
+					crewdata={crewdata}
+				/>
+			}
+			{(props.user && (crew || props.crew)) &&
 				<div className="allow-chat">
 					<button onClick={toggleLeaderboard}>
 						Go to Leaderboard
@@ -144,7 +178,7 @@ const CrewPage = (props) => {
 					<Chatbox chatRefType={chatRefType} />
 				</div>
 			}
-			{(props.user && !(crew||props.crew)) &&
+			{(props.user && !(crew || props.crew)) &&
 				<div className="disallow-chat">
 					<CrewListUI list={crewList}></CrewListUI>
 				</div>
@@ -154,13 +188,7 @@ const CrewPage = (props) => {
 					<p><Link to="/login">Login</Link> or <Link to="/register">Register</Link> to start chatting!</p>
 				</div>
 			}
-			{showLeaderboard ?
-				<LeaderboardPopup
-					text='Close Me'
-					closePopup={toggleLeaderboard}
-				/>
-				: null
-			}
+
 		</div>
 	);
 }

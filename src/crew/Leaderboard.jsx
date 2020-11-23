@@ -1,36 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import firebase from '../firebase';
+import React, { useEffect, useState } from 'react';
 
 const Leaderboard = (props) => {
-
     var data = props.crewdata;
-    if(!data){
-        data.sort(function(a,b){
-            return a.point > b.point
-        });
-    }
-
-
-    const LeaderboardUI = ({ dataList }) => (
-		<ul>
-			{dataList.map(item => (
-				<LeaderboardItem item={item}></LeaderboardItem>
-			))}
-		</ul>
-    );
-	const LeaderboardItem = ({ item }) => (
-		<li>
-			<div>{item.name}</div>
-		</li>
-	);
+    const [sdata, setSdata] = useState(null);
+    useEffect(() => {
+        setTimeout(() => {
+            data.sort(function (a, b) {
+                return a.points < b.points
+            });
+            setSdata(data);
+        }, 300);
+    }, [setSdata,data]);
+    // console.log("!data is :", sdata);
 
     return (
         <div className='leaderboard'>
-            {!data &&
-                <LeaderboardUI dataList={data}>
-
-                </LeaderboardUI>       
+            {sdata &&
+                <>
+                    <ul>
+                        {sdata.map(item => (
+                            <li key={item.username}>
+                                <div>{item.username} : {item.points}</div>
+                            </li>
+                        ))}
+                    </ul>
+                    <button onClick={() => props.onSubmit(false)}>Close</button>
+                </>
             }
         </div>
     );

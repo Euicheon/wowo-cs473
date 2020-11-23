@@ -51,14 +51,14 @@ const App = (props) => {
 				setCrew(doc.data().crew)
 			} else {
         // doc.data() will be undefined in this case
-        console.log(doc);
+        // console.log(doc);
 				console.log("No such document!");
 			}
 		}).catch(function(error) {
 			console.log("Error getting document:", error);
 		});
   }
-  console.log("beforeUSE",props)
+  // console.log("beforeUSE",props)
   // useEffect(() => {
   //   // const user = firebase.auth().currentUser;
   //   // crewValidity(props.user.uid);
@@ -70,7 +70,7 @@ const App = (props) => {
   if(props.user){
     crewValidity(props.user.uid)
   }
-  console.log("afterUSE",props)
+  // console.log("afterUSE",props)
   return (
     <div className="app-home--container">
       {props.user &&
