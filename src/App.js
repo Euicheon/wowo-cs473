@@ -34,7 +34,6 @@ const styles = {
 };
 
 const App = (props) => {
-
   const [crew, setCrew] = useState(null);
   const [index, setIndex] = useState(props.index || 0);
 
@@ -53,14 +52,14 @@ const App = (props) => {
         setCrew(doc.data().crew)
       } else {
         // doc.data() will be undefined in this case
-        console.log(doc);
-        console.log("No such document!");
-      }
-    }).catch(function (error) {
-      console.log("Error getting document:", error);
-    });
+        // console.log(doc);
+				console.log("No such document!");
+			}
+		}).catch(function(error) {
+			console.log("Error getting document:", error);
+		});
   }
-  console.log("beforeUSE", props)
+  // console.log("beforeUSE",props)
   // useEffect(() => {
   //   // const user = firebase.auth().currentUser;
   //   // crewValidity(props.user.uid);
@@ -72,7 +71,7 @@ const App = (props) => {
   if (props.user) {
     crewValidity(props.user.uid)
   }
-  console.log("afterUSE", props)
+  // console.log("afterUSE",props)
   return (
     <>
       {props.user &&
@@ -85,8 +84,8 @@ const App = (props) => {
               </div>
             </a>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="mr-auto">
+            <Navbar.Collapse id="basic-navbar-nav" style={{flexDirection: 'row',}}>
+              <Nav className="ml-auto">
                 <Nav.Link onClick={() => firebase.auth().signOut()} href="/login">Logout</Nav.Link>
               </Nav>
             </Navbar.Collapse>

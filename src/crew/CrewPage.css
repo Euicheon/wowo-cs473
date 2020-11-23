@@ -1,9 +1,9 @@
-.crew-home--container{
+.home--container{
 	margin: 0 auto;
-	height: 100%;
+	height: 600px;
 	width: 100%;
 }
-.crew-home--container h1{
+.home--container h1{
 	text-align: center;
 }
 
@@ -12,7 +12,7 @@
 	list-style-type: none;
 }
 .chat-list li{
-	padding: 5px 0;
+	padding: 0px 0;
 }
 .chat-list em{
 	font-size: 12px;
