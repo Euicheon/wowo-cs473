@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './Auth.css';
 
 //firestore userDB 등록
-// var db = firebase.firestore();
+var db = firebase.firestore();
 
 const styles = {
 	fixSize: {
@@ -45,8 +45,20 @@ class Register extends React.Component {
                 })
                 .catch(error => {
                     this.setState({error});
-                });
-                })
+				});
+				db.collection("users").doc(user.uid).set({
+					username: username,
+					email: email,
+					crew: null,
+					points: 0
+				})
+					.then(function (docRef) {
+						console.log("Document written with ID: ", docRef.id);
+					})
+					.catch(function (error) {
+						console.error("Error adding document: ", error);
+					});
+				})
             .catch(error => {
                 this.setState({error});
             });
