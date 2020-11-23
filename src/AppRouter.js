@@ -34,18 +34,18 @@ class AppRouter extends React.Component {
 						{this.state.user &&
 							<>
 								<Switch>
-									<Route path="/" render={() => <App user={this.state.user} index={this.props.index} />} />
 									<Route path="/hunsu/post/create" exact component={Create}></Route>
 									<Route path="/hunsu/post/detail" exact component={PostDetail}></Route>
+									<Route path="/main/workout" exact component={Workout} />
+									<Route path="/" render={() => <App user={this.state.user} index={this.props.index} />} />
 								</Switch>
 							</>
 						}
 						{!this.state.user &&
 							<Switch>
-								<Route path="/" exact component={Login} />
 								<Route path="/login" exact component={Login} />
 								<Route path="/register" exact component={Register} />
-								<Route path="/main/workout" exact component={Workout} />
+								<Route path="/" exact component={Login} />
 							</Switch>
 						}
 					</Row>

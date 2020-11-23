@@ -12,17 +12,16 @@ const styles = {
     padding: "10px 10px",
     borderRadius: "100px",
     borderWidth: '2px',
-    borderColor: "#5DB075",
+    backgroundColor: "#5DB075",
     fontSize: '20px',
     fontWeight: 'bold',
-    color: '#5DB075',
+    color: '#FFFFFF',
   },
 }
 
 const Workout = (props) => {
   const [timeSpent, setTimeSpent] = useState('00:00:00');
   const [pop, setPop] = useState(false);
-  
 
   const onClick = () => {
     setPop(true)
@@ -33,9 +32,7 @@ const Workout = (props) => {
     const min = m.toString();
     const sec = s.toString();
     var formatted = '';
-  
-    // console.log(hour, min, sec);
-  
+    
     if (hour.length === 1) {
       formatted = formatted.concat('0', hour, ':')
     } else {
@@ -57,12 +54,11 @@ const Workout = (props) => {
   }
 
   return (
-    <div>
+    <Col>
       <ReactStopwatch
         seconds={0}
         minutes={0}
         hours={0}
-        onCallback={() => console.log('Finish')}
         onChange={({hours, minutes, seconds}) => {
           const hey = makeFormat(hours, minutes, seconds);
           setTimeSpent(hey)
@@ -82,7 +78,7 @@ const Workout = (props) => {
       {pop &&
         <PopUp handleSubmit={setPop} timestamp={props.location.state.timestamp} timeSpent={timeSpent} />
       }
-    </div>
+    </Col>
   );
 }
 
