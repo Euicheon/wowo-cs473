@@ -4,11 +4,8 @@ import '../CSS/Post.css';
 
 const Post = (props) => {
 
-    const [writer, setWriter] = useState('Default Writer');
     const [title, setTitle] = useState('Default Title');
-    const [content, setContent] = useState('Default Content');
     const [imgPath, setImgPath] = useState('https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png');
-    const [createdAt, setCreatedAt] = useState('Default Date');
 
     const defaultImages = [
         'https://upload.wikimedia.org/wikipedia/commons/7/7d/Wildlife_at_Maasai_Mara_%28Lion%29.jpg',
@@ -28,15 +25,12 @@ const Post = (props) => {
         'https://www.thoughtco.com/thmb/fZGivPijVE1b0BV0PqywnUzccU0=/1920x1271/filters:no_upscale():max_bytes(150000):strip_icc()/lemur-949422_1920-248f897d117340b2ba827db16a94f4e2.jpg'
     ]
 
-    const handleProps = (info) => {
-        if (info.writer !== undefined) {setWriter(info.writer)};
-        if (info.title !== undefined) {setTitle(info.title)};
-        if (info.content !== undefined) {setContent(info.content)};
-        if (info.createdAt !== undefined) {setCreatedAt(info.createdAt)};
+    const handleProps = (data) => {
+        if (data.title !== undefined) {setTitle(data.title)};
     }
 
-    const handleImgPath = (info) => {
-        if (info.imgPath !== undefined) {setImgPath(info.imgPath)}
+    const handleImgPath = (data) => {
+        if (data.imgPath !== undefined) {setImgPath(data.imgPath)}
         else {
             var randImage = Math.floor(Math.random() * defaultImages.length)
             setImgPath(defaultImages[randImage])
@@ -44,24 +38,21 @@ const Post = (props) => {
     }
 
     useEffect(() => {
-        handleProps(props.info);
-        handleImgPath(props.info); 
+        handleProps(props.info.data);
+        handleImgPath(props.info.data); 
     }, [])
     
     return (
         <div className="row">
             <div className="col-md-12 px-0">
                 <div className="rounded-lg overflow-hidden">
+                {/*<div className='description'>♥{props.info.data.whoLikes.length}</div>*/}
                     <NavLink to={{
                         pathname: '/post/detail',
-                        state: {writer: writer,
-                                title: title,
-                                content: content,
-                                imgPath: imgPath,
-                                createdAt: createdAt}}}>
-                        <img src={imgPath} alt='' className="img-fluid"/>
+                        state: props.info}}>
+                        <img src={imgPath} alt={props.info.id} className="img-fluid"/>
                     </NavLink>
-                    <div className='description'>{title}</div>
+                    <div className='postDescription'>{title}</div>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ import { Col, Navbar, Nav, } from 'react-bootstrap';
 
 import MainPage from './main/MainPage';
 import CrewPage from './crew/CrewPage';
-import HunsuPage from './hunsu/HunsuPage';
+import Posts from './hunsu/JSX/Posts';
 import CalendarPage from './calendar/CalendarPage';
 import InfoPage from './info/InfoPage';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
@@ -92,11 +92,11 @@ const App = (props) => {
             </Navbar.Collapse>
           </Navbar>
           <SwipeableRoutes animateHeight={true} style={styles.fixSize} index={index} onChangeIndex={handleChangeIndex} enableMouseEvents>
-            <Route path="/main" exact component={MainPage} />
-            <Route path="/crew" exact component={() => <CrewPage user={props.user} />} />
-            <Route path="/hunsu" exact component={HunsuPage} />
-            <Route path="/calendar" exact component={CalendarPage} />
-            <Route path="/info" exact component={InfoPage} />
+            <Route path="/main" component={MainPage} />
+            <Route path="/crew" component={() => <CrewPage user={props.user} crew={crew} />} />
+            <Route path="/hunsu" component={Posts} />
+            <Route path="/calendar" component={CalendarPage} />
+            <Route path="/info" component={InfoPage} />
           </SwipeableRoutes>
           <BottomNavigation style={styles.navigation} value={index} onChange={handleChange} showLabels>
             <BottomNavigationAction label="Main" value="0" icon={<Home />} />
