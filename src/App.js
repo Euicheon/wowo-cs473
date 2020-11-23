@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
-import { Col, Navbar, Nav, } from 'react-bootstrap';
+import { Route, Link } from 'react-router-dom';
+import { Col, Navbar, Nav, NavLink } from 'react-bootstrap';
 
 import MainPage from './main/MainPage';
 import CrewPage from './crew/CrewPage';
@@ -40,9 +40,9 @@ const App = (props) => {
     setIndex(parseInt(value))
   };
 
-  const handleChangeIndex = (value) => {
-    setIndex(value)
-  };
+  // const handleChangeIndex = (value) => {
+  //   setIndex(value)
+  // };
 
   const crewValidity = (uid) => {
     var docRef = db.collection("users").doc(uid);
@@ -97,11 +97,11 @@ const App = (props) => {
           <Route path="/info" component={InfoPage} />
 
           <BottomNavigation style={styles.navigation} value={index} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Main" value="0" icon={<Home />} />
-            <BottomNavigationAction label="Crew" value="1" icon={<Forum />} />
-            <BottomNavigationAction label="Hunsu" value="2" icon={<Dashboard />} />
-            <BottomNavigationAction label="Calendar" value="3" icon={<DateRange />} />
-            <BottomNavigationAction label="Profile" value="4" icon={<AccountCircle />} />
+            <BottomNavigationAction component={Link} to="/main" label="Main" value="0" icon={<Home />} />
+            <BottomNavigationAction component={Link} to="/crew" label="Crew" value="1" icon={<Forum />} />
+            <BottomNavigationAction component={Link} to="/hunsu" label="Hunsu" value="2" icon={<Dashboard />} />
+            <BottomNavigationAction component={Link} to="/calendar" label="Calendar" value="3" icon={<DateRange />} />
+            <BottomNavigationAction component={Link} to="/info" label="Profile" value="4" icon={<AccountCircle />} />
           </BottomNavigation>
         </Col>
       }
