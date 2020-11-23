@@ -1,6 +1,8 @@
 import React from 'react';
 import firebase from '../firebase';
 
+import './ChatBox.css';
+
 class Chatbox extends React.Component{
 	constructor(props){
 		super(props);
@@ -20,26 +22,30 @@ class Chatbox extends React.Component{
 						id: chat,
 						message: getChats[chat].message,
 						user: getChats[chat].user,
-						date: getChats[chat].timestamp
+						date: getChats[chat].timestamp,
+						isMe: getChats[chat].user === this.props.currentUserName,
 					});
 				}
 			}
-			const chats = ascChats.reverse();
+			const chats = ascChats;
 			this.setState({chats});
 		});
 	}
 
 	render(){
 		return(
-			<div className="chatbox">
+			<div className="chatbox" style={{height: '450px', overflow: 'auto'}}>
 				<ul className='chat-list'>
 					{this.state.chats.map(chat => {
 						const postDate = new Date(chat.date);
 						return(
 							<li key={chat.id}>
-								<em>{postDate.getDate() + '/' + (postDate.getMonth()+1)}</em>
+								<div className={chat.isMe ? "mymsg" : "othermsg"}>
+									{chat.message}
+								</div>
+								{/* <em>{postDate.getDate() + '/' + (postDate.getMonth()+1)}</em>
 								<strong>{chat.user}:</strong> 
-								{chat.message}
+								{chat.message} */}
 							</li>
 						);
 					})}

@@ -2,10 +2,9 @@ import React from 'react';
 import firebase from './firebase'
 import { Link } from 'react-router-dom';
 import './Auth.css';
-import Login from './Login';
 
 //firestore userDB 등록
-var db = firebase.firestore();
+// var db = firebase.firestore();
 
 const styles = {
 	fixSize: {

@@ -13,7 +13,7 @@ const styles = {
 		position: 'fixed',
 		zIndex: '1',
 		width: '100%',
-		height: '100%',
+		height: '600px',
 		backgroundColor: 'rgba(0, 0, 0, 0.25)',
 	},
 	popup: {
@@ -169,7 +169,6 @@ const CrewPage = (props) => {
 	}
 	return (
 		<div className="home--container">
-			<h1>Welcome to the chat!</h1>
 			{showLeaderboard &&
 				<LeaderboardPopup
 					closePopup={setShowLeaderboard}
@@ -181,11 +180,10 @@ const CrewPage = (props) => {
 					<button onClick={toggleLeaderboard}>
 						Go to Leaderboard
 					</button>
+					<Chatbox chatRefType={chatRefType} currentUserName={props.user.displayName} />
 					<form className="send-chat" onSubmit={handleSubmit}>
 						<input type="text" name="message" id="message" value={message} onChange={handleChange} placeholder='Leave a message...' />
 					</form>
-
-					<Chatbox chatRefType={chatRefType} />
 				</div>
 			}
 			{(props.user && !(crew || props.crew)) &&
