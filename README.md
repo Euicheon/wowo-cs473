@@ -19,8 +19,8 @@
 
 ## Prerequisites
 
-- npm >=5.5.0
-- node >=9.3.0
+- npm >=6.14.6
+- node >=12.8.3
 
 ## Install
 
@@ -38,7 +38,10 @@ npm start
 
 👤 **Yunha Park, Syojin Sim, Euicheon Lee, Yoonseo Kim**
 
-* Github: [@ParkYunha, hyojini22, Euicheon, myoons](https://github.com/ParkYunha, hyojini22, Euicheon, myoons)
+* Github: @[ParkYunha](https://github.com/ParkYunha)
+* Github: @[hyojini22](https://github.com/hyojini22)
+* Github: @[Euicheon](https://github.com/Euicheon)
+* Github: @[myoons](https://github.com/myoons)
 
 ## 🤝 Contributing
 
@@ -47,6 +50,3 @@ Contributions, issues and feature requests are welcome!<br />Feel free to check 
 ## Show your support
 
 Give a ⭐️ if this project helped you!
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
