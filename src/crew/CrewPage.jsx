@@ -13,7 +13,7 @@ const styles = {
 		backgroundColor: 'skyblue',
 		textAlign: 'center',
 		height: '650px',
-		width: '400px',
+		width: '100%',
 		margin: 'auto',
 		display: 'flex',
 		flexDirection: 'column',

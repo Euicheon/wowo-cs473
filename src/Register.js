@@ -72,8 +72,8 @@ class Register extends React.Component {
 						value={password}
 						onChange={this.handleChange}
 					/>
-					<button className="general-submit" children="Get Started" />
-					{/* <p>Already have an account? <Link className="login-btn" to="/login">Login here</Link></p> */}
+					<button className="general-submit" style={styles.margin} children="Get Started" />
+					<p>Already have an account? <Link className="login-btn" to="/login">Login here</Link></p>
 				</form>
 			</div>
 		);

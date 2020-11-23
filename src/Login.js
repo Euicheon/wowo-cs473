@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import firebase from './firebase'
 import './Auth.css';
 
@@ -58,8 +60,8 @@ class Login extends React.Component {
             style={styles.margin}
             onChange={this.handleChange}
           />
-          <button className="general-submit" children="Get Started" />
-          {/* <p>Already have an account? <Link className="login-btn" to="/login">Login here</Link></p> */}
+          <button className="general-submit" style={styles.margin} children="Get Started" />
+          <p>Don't have an account? <Link className="register-btn" to="/register">Register here</Link></p>
         </form>
       </div>
     );
