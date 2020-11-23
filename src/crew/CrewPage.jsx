@@ -148,13 +148,14 @@ const CrewPage = (props) => {
 			docRef.get().then(function (querySnapshot) {
 				querySnapshot.forEach(function (doc) {
 					// doc.data() is never undefined for query doc snapshots
-					// console.log(doc.id, " => ", doc.data());
-					setCrewList(crewList.concat({ crewID: doc.data().crewid }))
+					console.log(doc.id, " => ", doc.data());
+					setCrewList(crewList => [...crewList,{ crewID: doc.data().crewid }])
 				});
 			});
 		};
 		getCrewList();
 		if (props.crew) {
+
 			setChatRefType(props.crew)
 			setCrew(props.crew)
 		}
@@ -163,6 +164,8 @@ const CrewPage = (props) => {
 			// console.log('컴포넌트가 화면에서 사라짐');
 		};
 	},[]);
+	console.log("!@!",crewList);
+
 	// console.log("??", props.crew, crew, props.user.uid, chatRefType)
 	if ((props.crew || crew) && (!chatRefType)) {
 		setChatRefType(props.crew)
