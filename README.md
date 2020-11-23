@@ -11,7 +11,7 @@
   </a>
 </p>
 
-> Application that gives sense of &#34;Together&#34; while exercising &#34;Alone&#34;
+> Application that gives sense of **Together** while exercising **Alone**
 
 ### 🏠 [Homepage](https://github.com/Euicheon/wowo-cs473)
 
