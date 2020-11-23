@@ -48,10 +48,12 @@ class Chatbox extends React.Component{
 						return(
 							<li key={chat.id}>
 								<div className={chat.isMe ? "mymsg" : "othermsg"}>
+									{!chat.isMe && 
+										<strong>{chat.user+':'}</strong>
+									}
 									{chat.message}
 								</div>
 								{/* <em>{postDate.getDate() + '/' + (postDate.getMonth()+1)}</em>
-								<strong>{chat.user}:</strong> 
 								{chat.message} */}
 							</li>
 						);

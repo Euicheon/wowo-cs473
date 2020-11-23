@@ -173,7 +173,7 @@ const CrewPage = (props) => {
 			// console.log('컴포넌트가 화면에서 사라짐');
 		};
 	},[]);
-	console.log("!@!",crewList);
+	// console.log("!@!",crewList);
 
 	// console.log("??", props.crew, crew, props.user.uid, chatRefType)
 	if ((props.crew || crew) && (!chatRefType)) {

@@ -19,8 +19,8 @@
 	font-style: normal;
 }
 .chat-list strong{
-	display: inline-block;
-	margin: 0 5px 0 10px;
+	/* display: inline-block;
+	margin: 0 5px 0 10px; */
 }
 .send-chat{
 	margin-top: 15px;
