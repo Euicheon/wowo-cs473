@@ -17,10 +17,7 @@ const styles = {
 }
 
 const Stopwatch = () => (
-  <NavLink to={{
-    pathname: '/main/workout',
-    state: { timestamp: new Date().getTime() }
-  }}>
+  <NavLink to='main/workout'>
     <button
       type="button"
       class="btn"

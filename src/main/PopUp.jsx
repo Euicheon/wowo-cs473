@@ -1,5 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+
 import firebase from '../firebase';
 
 const styles = {
@@ -11,6 +13,8 @@ const styles = {
     backgroundColor: 'rgba(0, 0, 0, 0.25)',
   },
   popup: {
+    display: 'flex',
+    flexDirection: 'column',
     backgroundColor: 'white',
     position: 'absolute',
     top: '20%',
@@ -18,7 +22,27 @@ const styles = {
     width: '40%',
     padding: '20px',
     borderRadius: '5px',
-    border: '2px solid black',
+  },
+  upload: {
+    border: '1px solid lightGrey',
+    padding: '10px 10px 10px 10px',
+    marginTop: '10px',
+    marginBottom: '10px',
+    backgroundColor: '#EEEEEE',
+  },
+  btnShare: {
+    width: '230px',
+    marginTop: '10px',
+    marginBottom: '5px',
+    background: '#5DB075',
+    borderColor: 'none',
+    color: 'white',
+  },
+  btnCancel: {
+    width: '230px',
+    background: 'white',
+    borderColor: '#5DB075',
+    color: '#5DB075',
   },
 }
 
@@ -96,8 +120,11 @@ const PopUp = (props) => {
   return (
     <div style={styles.background}>
       <div style={styles.popup}>
-        <NavLink to="/crew"><button onClick={onShare}>Share</button></NavLink>
-        <NavLink to="/main"><button onClick={onCancel}>Cancel</button></NavLink>
+        <h2>Great Job!</h2>
+        <div>Would you share this exercise record with your Crew?</div>
+        <div style={styles.upload}>{uploadMessage}</div>
+        <NavLink to="/crew"><Button style={styles.btnShare} onClick={onShare}>Share</Button></NavLink>
+        <NavLink to="/main"><Button style={styles.btnCancel} onClick={onCancel}>Cancel</Button></NavLink>
       </div>
     </div>
   )

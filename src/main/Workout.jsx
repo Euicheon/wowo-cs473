@@ -39,11 +39,11 @@ const styles = {
 const Workout = (props) => {
   const [timeSpent, setTimeSpent] = useState(0);
   const [pop, setPop] = useState(false);
-  const timestamp = props.location.state.timestamp;
+  const timestamp = new Date().getTime();
 
   const onClick = () => {
-    setPop(true)
-    setTimeSpent(new Date().getTime() - timestamp)
+    setPop(true);
+    setTimeSpent(new Date().getTime() - timestamp);
   };
 
   return (
@@ -52,7 +52,7 @@ const Workout = (props) => {
         <div style={styles.fixSize}>
           {!pop &&
             <ReactStopwatch
-              seconds={1}
+              seconds={0}
               minutes={0}
               hours={0}
               render={({ formatted }) => (<div style={styles.stopwatch}>{formatted}</div>)}
