@@ -37,7 +37,7 @@ const Create = () => {
         db.collection("users").doc(user.uid).get().then(doc => {
 
             rtdb.ref().child(doc.data().crew).push({
-              message: "[SYSTEM] " + username + " wrote a new post   " + 'Title : ' + title,
+              message: username + " wrote a new post   " + 'Title : ' + title,
               user: 'system',
               timestamp: new Date().getTime()
             })
