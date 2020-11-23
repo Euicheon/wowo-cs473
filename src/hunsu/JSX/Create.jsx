@@ -24,6 +24,8 @@ const Create = () => {
       setUserName(userdata.data().username);
     })
     
+    const increment = firebase.firestore.FieldValue.increment(2);
+
     const writeBoard = async () => {
 
         const boardTitle = title;
@@ -36,8 +38,12 @@ const Create = () => {
 
         db.collection("users").doc(user.uid).get().then(doc => {
 
-            rtdb.ref().child(doc.data().crew).push({
-              message: username + " wrote a new post   " + 'Title : ' + title,
+          db.collection('users').doc(user.uid).update({
+            points: increment
+          })
+
+          rtdb.ref().child(doc.data().crew).push({
+              message: username + " wrote a new post / " + 'Title : ' + title,
               user: 'system',
               timestamp: new Date().getTime()
             })
@@ -57,7 +63,7 @@ const Create = () => {
             comments: []
         }).then(docRef => {
             console.log('New Post Created : ', docRef.id)
-            alert('New Post Created');
+            alert('You got 2 points!');
             window.location.href = "/hunsu";
           }).catch(err => {
             console.log('New Posting Failed : ',err)
