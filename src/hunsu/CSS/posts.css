@@ -9,19 +9,19 @@
 .searchBar {
     border-radius: 3px;
     border: 2px #123456 solid;
-    margin-top: 15px;
-    width: 400px;
+    margin-top: 20px;
+    width: 50%;
     height: 45px;
     margin-left: 30px;
     clear: both;
 }
 
 .row .createButton {
-    width: 100px;
+    width: 20%;
     height: 45px;
     font-size: 20px;
     margin-right: 50px;
-    margin-top: 15px;
+    margin-top: 20px;
     background-color: #123456;
     float: right;
 }
@@ -32,8 +32,8 @@
 
 .scroll-container {
     margin: 0px;
-    margin-top: 20px;
+    margin-top: 15px;
     height: 600px;
-    width: 100%;
+    width: 440px;
     overflow: scroll;
 }
