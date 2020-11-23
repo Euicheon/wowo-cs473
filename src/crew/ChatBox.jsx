@@ -9,8 +9,9 @@ class Chatbox extends React.Component{
 		this.state = {
 			chats: []
 		}
+		this.messagesEnd = React.createRef();
 	}
-
+	// var messagesEndRef = React.createRef()
 	componentDidMount(){
 		const chatRef = firebase.database().ref(this.props.chatRefType);
 		chatRef.on('value', snapshot => {
@@ -30,8 +31,14 @@ class Chatbox extends React.Component{
 			const chats = ascChats;
 			this.setState({chats});
 		});
+		this.scrollToBottom()
 	}
-
+	componentDidUpdate () {
+		this.scrollToBottom()
+	}
+	scrollToBottom = () => {
+		this.messagesEnd.scrollIntoView({ behavior: "smooth" ,block: 'nearest', inline: 'start'});
+	}
 	render(){
 		return(
 			<div className="chatbox" style={{height: '450px', overflow: 'auto'}}>
@@ -41,15 +48,20 @@ class Chatbox extends React.Component{
 						return(
 							<li key={chat.id}>
 								<div className={chat.isMe ? "mymsg" : "othermsg"}>
+									{!chat.isMe && 
+										<strong>{chat.user+': '}</strong>
+									}
 									{chat.message}
 								</div>
 								{/* <em>{postDate.getDate() + '/' + (postDate.getMonth()+1)}</em>
-								<strong>{chat.user}:</strong> 
 								{chat.message} */}
 							</li>
 						);
 					})}
 				</ul>
+				<div style={{ float:"left", clear: "both" }}
+             		ref={(el) => { this.messagesEnd = el; }}>
+        		</div>
 			</div>
 		);
 	}
