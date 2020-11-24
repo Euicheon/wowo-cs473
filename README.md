@@ -15,7 +15,7 @@
 
 ### 🏠 [Homepage](https://github.com/Euicheon/wowo-cs473)
 
-### ✨ [Demo](TBD)
+### ✨ [Demo](https://euicheon.github.io/wowo-cs473/)
 
 ## Prerequisites
 
