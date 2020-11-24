@@ -88,7 +88,7 @@ const CrewPage = (props) => {
 	const updateCrewdata = (crewid) => {
 		const userRef = db.collection("users");
 		var tempcrewdata = []
-		db.collection("crews").doc('test').get()
+		db.collection("crews").doc(crewid).get()
 			.then(function (doc) {
 				const members = doc.data().members;
 				members.forEach(function (uid) {
