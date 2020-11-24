@@ -1,36 +1,39 @@
 .col-md-12 {
     margin-right: 7px;
 }
-.searchBar{
-    width: 100%;
-}
 
 .searchcreate{
     flex-direction: row;
 }
 
 .searchBar {
-    border-radius: 2px;
+    border-radius: 3px;
     border: 2px #123456 solid;
-    margin-top: 10px;
-    width: 200px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 20px;
+    width: 50%;
+    height: 45px;
+    margin-left: 30px;
+    clear: both;
 }
 
 .row .createButton {
-    width: 60px;
-    height: 33px;
-    font-size: 13px;
-    margin-right: 15px;
-    margin-top: 15px;
+    width: 20%;
+    height: 45px;
+    font-size: 20px;
+    margin-right: 50px;
+    margin-top: 20px;
     background-color: #123456;
+    float: right;
 }
 
-.row .titleHunsu{
-    color: #123456;
-    margin-top: 10px;
-    font-style: italic;
-    margin-left: 130px;
-    margin-right: auto;
+.container-SearchCreate {
+    flex-direction: row;
+}
+
+.scroll-container {
+    margin: 0px;
+    margin-top: 15px;
+    height: 600px;
+    width: 440px;
+    overflow: scroll;
 }
