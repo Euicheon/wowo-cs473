@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.1fa55967.chunk.css",
-    "main.js": "/static/js/main.dda6b028.chunk.js",
-    "main.js.map": "/static/js/main.dda6b028.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.dbfa010c.js",
-    "runtime-main.js.map": "/static/js/runtime-main.dbfa010c.js.map",
-    "static/css/2.0e93045e.chunk.css": "/static/css/2.0e93045e.chunk.css",
-    "static/js/2.58800769.chunk.js": "/static/js/2.58800769.chunk.js",
-    "static/js/2.58800769.chunk.js.map": "/static/js/2.58800769.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/2.0e93045e.chunk.css.map": "/static/css/2.0e93045e.chunk.css.map",
-    "static/css/main.1fa55967.chunk.css.map": "/static/css/main.1fa55967.chunk.css.map",
-    "static/js/2.58800769.chunk.js.LICENSE.txt": "/static/js/2.58800769.chunk.js.LICENSE.txt",
-    "static/media/BlueCalendar.03754e7c.png": "/static/media/BlueCalendar.03754e7c.png",
-    "static/media/demo_calendar.10b69a79.jpeg": "/static/media/demo_calendar.10b69a79.jpeg",
-    "static/media/wowo_logo.207fea00.png": "/static/media/wowo_logo.207fea00.png"
+    "main.css": "/wowo-cs473/static/css/main.1fa55967.chunk.css",
+    "main.js": "/wowo-cs473/static/js/main.08f41232.chunk.js",
+    "main.js.map": "/wowo-cs473/static/js/main.08f41232.chunk.js.map",
+    "runtime-main.js": "/wowo-cs473/static/js/runtime-main.d7af4818.js",
+    "runtime-main.js.map": "/wowo-cs473/static/js/runtime-main.d7af4818.js.map",
+    "static/css/2.0e93045e.chunk.css": "/wowo-cs473/static/css/2.0e93045e.chunk.css",
+    "static/js/2.cb718305.chunk.js": "/wowo-cs473/static/js/2.cb718305.chunk.js",
+    "static/js/2.cb718305.chunk.js.map": "/wowo-cs473/static/js/2.cb718305.chunk.js.map",
+    "index.html": "/wowo-cs473/index.html",
+    "static/css/2.0e93045e.chunk.css.map": "/wowo-cs473/static/css/2.0e93045e.chunk.css.map",
+    "static/css/main.1fa55967.chunk.css.map": "/wowo-cs473/static/css/main.1fa55967.chunk.css.map",
+    "static/js/2.cb718305.chunk.js.LICENSE.txt": "/wowo-cs473/static/js/2.cb718305.chunk.js.LICENSE.txt",
+    "static/media/BlueCalendar.03754e7c.png": "/wowo-cs473/static/media/BlueCalendar.03754e7c.png",
+    "static/media/demo_calendar.10b69a79.jpeg": "/wowo-cs473/static/media/demo_calendar.10b69a79.jpeg",
+    "static/media/wowo_logo.207fea00.png": "/wowo-cs473/static/media/wowo_logo.207fea00.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.dbfa010c.js",
+    "static/js/runtime-main.d7af4818.js",
     "static/css/2.0e93045e.chunk.css",
-    "static/js/2.58800769.chunk.js",
+    "static/js/2.cb718305.chunk.js",
     "static/css/main.1fa55967.chunk.css",
-    "static/js/main.dda6b028.chunk.js"
+    "static/js/main.08f41232.chunk.js"
   ]
 }
