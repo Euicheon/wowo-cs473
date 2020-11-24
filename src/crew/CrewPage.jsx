@@ -12,7 +12,7 @@ const styles = {
 	background: {
 		position: 'fixed',
 		zIndex: '1',
-		width: '100%',
+		width: '433px',
 		height: '600px',
 		backgroundColor: 'rgba(0, 0, 0, 0.25)',
 	},

@@ -4,17 +4,16 @@ import calendar from './demo_calendar.jpeg';
 
 const styles = {
 	align: {
-		backgroundColor: 'skyblue',
 		textAlign: 'center',
-		height: '100%',
+		height: '600px',
 		width: '100%',
 	},
 };
 
 const CalendarPage = () => {
 	return (
-		<div className="calendar_img">
-			<img src={calendar} style={styles.align} alt='' />
+		<div style={styles.align} >
+			<img src={calendar} className="calendar_img" alt='' />
 		</div>
 	);
 };
