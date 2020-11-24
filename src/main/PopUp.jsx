@@ -8,9 +8,10 @@ const styles = {
   background: {
     position: 'fixed',
     zIndex: '1',
-    width: '100%',
-    height: '100%',
+    width: '400px',
+		height: '700px',
     backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    textAlign: 'center',
   },
   popup: {
     display: 'flex',
@@ -18,8 +19,8 @@ const styles = {
     backgroundColor: 'white',
     position: 'absolute',
     top: '20%',
-    left: '30%',
-    width: '40%',
+    left: '10%',
+    width: '80%',
     padding: '20px',
     borderRadius: '5px',
   },
@@ -31,18 +32,18 @@ const styles = {
     backgroundColor: '#EEEEEE',
   },
   btnShare: {
-    width: '230px',
+    width: '100%',
     marginTop: '10px',
     marginBottom: '5px',
-    background: '#5DB075',
+    background: '#41ABFF',
     borderColor: 'none',
     color: 'white',
   },
   btnCancel: {
-    width: '230px',
+    width: '100%',
     background: 'white',
-    borderColor: '#5DB075',
-    color: '#5DB075',
+    borderColor: '#41ABFF',
+    color: '#41ABFF',
   },
 }
 
@@ -51,11 +52,11 @@ var rtdb = firebase.database();
 
 const PopUp = (props) => {
   const user = firebase.auth().currentUser;
-  const dh = parseInt(props.timeSpent/1000/60/60);
-  const dm = parseInt(props.timeSpent/1000/60);
-  const ds = parseInt(props.timeSpent/1000);
+  const dh = parseInt(props.timeSpent / 1000 / 60 / 60);
+  const dm = parseInt(props.timeSpent / 1000 / 60);
+  const ds = parseInt(props.timeSpent / 1000);
   const formattedDuration = (h, m, s) => {
-    var duration = s +" sec.";
+    var duration = s + " sec.";
     if (h === 0 && m === 0) {
       return duration
     }
@@ -66,7 +67,7 @@ const PopUp = (props) => {
   }
 
 
-  const uploadMessage = 
+  const uploadMessage =
     "[SYSTEM] " + user.displayName + " worked out for " + formattedDuration(dh, dm, ds)
 
   const onShare = () => {
@@ -123,8 +124,10 @@ const PopUp = (props) => {
         <h2>Great Job!</h2>
         <div>Would you share this exercise record with your Crew?</div>
         <div style={styles.upload}>{uploadMessage}</div>
-        <NavLink to="/crew"><Button style={styles.btnShare} onClick={onShare}>Share</Button></NavLink>
-        <NavLink to="/main"><Button style={styles.btnCancel} onClick={onCancel}>Cancel</Button></NavLink>
+        <div style={{ display: 'flex', flexDirection: 'column', }}>
+          <NavLink to="/crew"><Button style={styles.btnShare} onClick={onShare}>Share</Button></NavLink>
+          <NavLink to="/main"><Button style={styles.btnCancel} onClick={onCancel}>Cancel</Button></NavLink>
+        </div>
       </div>
     </div>
   )

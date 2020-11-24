@@ -23,7 +23,7 @@ const styles = {
     padding: "10px 10px",
     borderRadius: "100px",
     borderWidth: '2px',
-    backgroundColor: "#51BBFF",
+    backgroundColor: "#41ABFF",
     fontSize: '20px',
     fontWeight: 'bold',
     fontStyle: 'italic',

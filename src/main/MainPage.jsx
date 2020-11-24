@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Stopwatch from './Stopwatch';
-import calendar from '../calendar.png';
+import calendar from '../BlueCalendar.png';
 
 const styles = {
 	align: {

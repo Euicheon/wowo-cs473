@@ -8,10 +8,10 @@ const styles = {
     padding: "10px 10px",
     borderRadius: "100px",
     borderWidth: '2px',
-    borderColor: "#51BBFF",
+    borderColor: "#41ABFF",
     fontSize: '20px',
     fontWeight: 'bold',
-    color: '#51BBFF',
+    color: '#41ABFF',
     display: 'inline-block',
   },
 }
