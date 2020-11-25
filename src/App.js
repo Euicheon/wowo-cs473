@@ -69,6 +69,8 @@ const App = (props) => {
   //   }, []);]
   if (props.user) {
     crewValidity(props.user.uid)
+    console.log(props.user.uid)
+    console.log(props.user)
   }
   // console.log("afterUSE",props)
   return (
@@ -94,7 +96,7 @@ const App = (props) => {
           <Route path="/crew" component={() => <CrewPage user={props.user} crew={crew} />} />
           <Route path="/hunsu" component={Posts} />
           <Route path="/calendar" component={CalendarPage} />
-          <Route path="/info" component={InfoPage} />
+          <Route path="/info" component={() => <InfoPage user={props.user} />} />
 
           <BottomNavigation style={styles.navigation} value={index} onChange={handleChange} showLabels>
             <BottomNavigationAction component={Link} to="/main" label="Main" value="0" icon={<Home />} />
