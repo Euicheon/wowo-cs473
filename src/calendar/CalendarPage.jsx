@@ -5,28 +5,30 @@ import calendar from './demo_calendar.jpeg';
 const styles = {
 	align: {
 		textAlign: 'center',
-		height: '600px',
-		width: '100%',
+		height: '520px',
+		width: '90%',
 	},
 };
 
 
 const ColoredLine = ({ color }) => (
-  <hr
-      style={{
-          color: color,
-          backgroundColor: color,
-          height: 1
-      }}
-  />
+	<hr
+		style={{
+			color: color,
+			backgroundColor: color,
+			height: 1
+		}}
+	/>
 );
 
 const CalendarPage = () => {
 	return (
-		<div style={styles.align} >
-			<h2 id = "ubuntuFont" className="titleCalendar">Calendar</h2>
-      <ColoredLine color="gray" />
-			<img src={calendar} alt='' />
+		<div className="calendar_img">
+			<div style={{textAlign: 'center'}}>
+				<h2 id="ubuntuFont" className="titleCalendar">Calendar</h2>
+				<ColoredLine color="gray" />
+				<img src={calendar} style={styles.align} alt='' />
+				</div>
 		</div>
 	);
 };

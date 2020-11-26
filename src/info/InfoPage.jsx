@@ -10,7 +10,6 @@ import './infoPage.css';
 import demoProfile from './demoProfile.png';
 
 var db = firebase.firestore();
-var user = firebase.auth().currentUser;
 
 const styles = {
   align: {
@@ -54,6 +53,7 @@ class InfoPage extends React.Component {
 
 
   componentDidMount() {
+    var user = firebase.auth().currentUser;
     const ref = db.collection('users').doc(user.uid);
     console.log('users', ref.data);
 
@@ -73,7 +73,7 @@ class InfoPage extends React.Component {
 
   render() {
     return (
-      <div style={{textAlign: "center"}}>
+      <div style={{height: "600px", width: "433px", textAlign: "center"}}>
         <h2 id = "ubuntuFont" className="titleProfile">Profile</h2>
         <ColoredLine color="gray" />
 
