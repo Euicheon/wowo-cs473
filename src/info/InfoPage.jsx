@@ -3,12 +3,14 @@ import firebase from '../firebase';
 import Demographic from './Demographics'
 import Topbar from './Topbar';
 
-
 import {Link} from 'react-router-dom'
 import {Checkbox, Icon, Button} from 'react-materialize'
 
 import './infoPage.css';
 import demoProfile from './demoProfile.png';
+
+var db = firebase.firestore();
+var user = firebase.auth().currentUser;
 
 const styles = {
   align: {
@@ -51,6 +53,22 @@ class InfoPage extends React.Component {
   }
 
 
+  componentDidMount() {
+    const ref = db.collection('users').doc(user.uid);
+    console.log('users', ref.data);
+
+    db.collection("users").doc(user.uid).get()
+          .then((doc) => {
+            console.log("find it!: ", doc.data())
+            console.log("Name1", doc.data().username)
+            this.setState({...this.state, username: doc.data().username, email: doc.data().email, crew: doc.data().crew, points: doc.data().points })
+           
+          })
+          .catch(function (error) {
+            console.error("Error getting document: ", error);
+          });
+
+  }
 
 
   render() {
@@ -62,7 +80,7 @@ class InfoPage extends React.Component {
         <div className="profile-box">
           <img src={demoProfile} alt="" style={styles.profileImg} ></img>
           <h2 id="ubuntuSmallBold" className="name">{this.state.username}</h2>
-          <h2 id="ubuntuSmallGray">{this.state.email}</h2> 
+          <h2 id="ubuntuSmallBlack">{this.state.email}</h2> 
           <h2 id="ubuntuSmallPink">Crew: {this.state.crew} | Points: {this.state.points}</h2> 
         </div>
 
@@ -136,7 +154,7 @@ class InfoPage extends React.Component {
       result => {
         this.userList = result.val();
         var args = this.getUserInfo('유나');
-        this.setState({...this.state, Name:args['name'], Class:args['class'], Age:args['age'], Tel: args['tel']});
+        this.setState({...this.state, Name:args['name'], Crew:args['crew'], Age:args['age'], Tel: args['tel']});
         download_picture(args['picture'], this);
       }
     )
