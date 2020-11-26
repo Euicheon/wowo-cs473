@@ -16,6 +16,14 @@ const styles = {
 		textAlign: 'center',
 		height: '600px',
     width: '100%',
+    display: 'flex',
+		flexDirection: 'column',
+  },
+  profileImg: {
+    width: '150px',
+    height: '150px',
+    resizeMode: 'contain',
+    margin: '10px 0 0 0',
   },
 };
 
@@ -33,25 +41,32 @@ class InfoPage extends React.Component {
   userList = null;
 
   state = {
-    username: '',
-    email: '',
-    gender:'',
-    birth: '',
-    crew: '',
-    points:'',
+    username: 'AmonGus',
+    email: 'amongus@gmail.com',
+    gender:'Female',
+    birth: '991225',
+    crew: 'Imposters',
+    points:'100',
     profileImgPath: ''
   }
 
 
 
 
-
   render() {
     return (
-      <div id = "ubuntuFont" className="profile-box" style={{textAlign: "center"}}>
-        <h2 className="titleProfile">Profile</h2>
+      <div style={{textAlign: "center"}}>
+        <h2 id = "ubuntuFont" className="titleProfile">Profile</h2>
         <ColoredLine color="gray" />
-        
+
+        <div className="profile-box">
+          <img src={demoProfile} alt="" style={styles.profileImg} ></img>
+          <h2 id="ubuntuSmallBold" className="name">{this.state.username}</h2>
+          <h2 id="ubuntuSmallGray">{this.state.email}</h2> 
+          <h2 id="ubuntuSmallPink">Crew: {this.state.crew} | Points: {this.state.points}</h2> 
+        </div>
+
+        <ColoredLine color="gray" />
         
 
       </div>

@@ -1,5 +1,6 @@
 .profile-box {
   text-align: center;
+  background-color: azure;
 }
 
 .profile-img {
@@ -8,23 +9,59 @@
 
 }
 
-.titleProfile{
+.titleProfile {
   color: #123456;
   margin-top: 10px;
   text-align: center;
 }
 
+.name {
+  color: #123456;
+  margin-top: 15px;
+  text-align: center;
+}
+
+
+
 
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 #ubuntuFont {
 
-
   font-family: Ubuntu;
   font-weight: 500;
   font-size: 2em;
+
+}
+
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+#ubuntuSmallBold {
+
+  font-family: Ubuntu;
+  font-weight: 600;
+  font-size: 1.5em;
+
+}
+
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+#ubuntuSmallPink {
+
+  font-family: Ubuntu;
+  font-weight: 400;
+  font-size: 1.2em;
+  color: #e654b0;
+  text-align: center;
 }
 
 
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+#ubuntuSmallGray {
+
+  font-family: Ubuntu;
+  font-weight: 400;
+  font-size: 1em;
+  color: black;
+  text-align: center;
+}
 
 
 
