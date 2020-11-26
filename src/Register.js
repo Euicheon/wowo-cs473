@@ -25,7 +25,7 @@ class Register extends React.Component {
 			email: '',
 			password: '',
 			gender: '',
-      birth: '',
+			birth: '',
 			error: null
 		}
 	}
@@ -34,39 +34,41 @@ class Register extends React.Component {
 	}
 	handleSubmit = e => {
 		e.preventDefault();
-        const {email, username, password, gender, birth} = this.state;
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then(() => {
-                const user = firebase.auth().currentUser;
-                user
-                    .updateProfile({displayName: username})
-                .then(() => {
-                    this.props.history.push('/main');
-                })
-                .catch(error => {
-                    this.setState({error});
-				});
-				db.collection("users").doc(user.uid).set({
-					username: username,
-					email: email,
-					gender: gender,
-					birth: birth,
-					profileImgPath: '/ProfileImg/demoProfile.png',
-					crew: null,
-					points: 0
-				})
-					.then(function (docRef) {
-						console.log("Document written with ID: ", docRef.id);
+		const { email, username, password, gender, birth } = this.state;
+		firebase
+			.auth()
+			.createUserWithEmailAndPassword(email, password)
+			.then(() => {
+				const user = firebase.auth().currentUser;
+				user
+					.updateProfile({ displayName: username })
+					.then(() => {
+						db.collection("users").doc(user.uid).set({
+							username: username,
+							email: email,
+							gender: gender,
+							birth: birth,
+							profileImgPath: '/ProfileImg/demoProfile.png',
+							crew: null,
+							points: 0,
+							createdAt: new Date(),
+						})
+							.then(function () {
+								console.log("Document written");
+							})
+							.catch(function (error) {
+								console.error("Error adding document: ", error);
+							});
+							this.props.history.push('/main');
 					})
-					.catch(function (error) {
-						console.error("Error adding document: ", error);
+					.catch(error => {
+						this.setState({ error });
 					});
-				})
-            .catch(error => {
-                this.setState({error});
-            });
+
+			})
+			.catch(error => {
+				this.setState({ error });
+			});
 	}
 	render() {
 		const { email, username, password, gender, birth, error } = this.state;
@@ -89,14 +91,14 @@ class Register extends React.Component {
 						onChange={this.handleChange}
 					/>
 					<label htmlFor="gender">Gender</label>
-          {/* <input type="text" name="gender" id="gender" value={gender} onChange={this.handleChange} /> */}
+					{/* <input type="text" name="gender" id="gender" value={gender} onChange={this.handleChange} /> */}
 					<select value={gender} onChange={this.handleChange}>
 						<option value='Female'>Female</option>
 						<option value='Male'>Male</option>
 					</select>
 
-          <label htmlFor='birth'>Birth (YYMMDD)</label>
-          <input type="text" name="birth" id="birth" value={birth} onChange={this.handleChange} />
+					<label htmlFor='birth'>Birth (YYMMDD)</label>
+					<input type="text" name="birth" id="birth" value={birth} onChange={this.handleChange} />
 
 					<button className="general-submit" style={styles.margin} children="Get Started" />
 					<p>Already have an account? <Link className="login-btn" to="/login">Login here</Link></p>

@@ -13,12 +13,19 @@ const Create = () => {
     const [file, setFile] = useState('');
     const [previewURL, setPreViewURL] = useState('');
     const [username, setUserName] = useState('');
+    const [imgPath, setImgPath] = useState('https://firebasestorage.googleapis.com/v0/b/wowo-cs473.appspot.com/o/wowo_logo.png?alt=media&token=fc8dfa4e-777f-4746-9aa0-cca5268e7008');
 
-    firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get().then(userdata => {
+    const rtdb = firebase.database();
+    const db = firebase.firestore();
+    const user = firebase.auth().currentUser;
+
+    db.collection('users').doc(user.uid).get().then(userdata => {
       console.log('user : ',userdata.data().username);
       setUserName(userdata.data().username);
     })
     
+    const increment = firebase.firestore.FieldValue.increment(2);
+
     const writeBoard = async () => {
 
         const boardTitle = title;
@@ -29,22 +36,34 @@ const Create = () => {
           return;
         }
 
-        const storageRef = firebase.storage().ref('postImages');
-        const fileRef = storageRef.child(file.name)
-        await fileRef.put(file)
+        db.collection("users").doc(user.uid).get().then(doc => {
+
+          db.collection('users').doc(user.uid).update({
+            points: increment
+          })
+
+          rtdb.ref().child(doc.data().crew).push({
+              message: username + " wrote a new post / " + 'Title : ' + title,
+              user: 'system',
+              timestamp: new Date().getTime()
+            })
+          })
+          .catch(function (error) {
+            console.error("Error getting document: ", error);
+          });
 
         const posts = firebase.firestore().collection('posts');
         posts.add({
             writer: username,
             title: boardTitle,
             content: boardContent,
-            imgPath: await fileRef.getDownloadURL(),
+            imgPath: imgPath,
             timestamp: new Date(),
             whoLikes: [],
             comments: []
         }).then(docRef => {
             console.log('New Post Created : ', docRef.id)
-            alert('New Post Created');
+            alert('You got 2 points!');
             window.location.href = "/hunsu";
           }).catch(err => {
             console.log('New Posting Failed : ',err)
@@ -62,7 +81,15 @@ const Create = () => {
       reader.onloadend = () => {
         setFile(currentFile);
         setPreViewURL(reader.result);
+
+        const storageRef = firebase.storage().ref('postImages');
+        storageRef.child(currentFile.name).put(currentFile).then(snapshot => {
+          snapshot.ref.getDownloadURL().then(image => {
+            setImgPath(image)
+          });
+        })
       }
+
       if (currentFile!==undefined) {reader.readAsDataURL(currentFile);}
       else {
         setFile(prevFile);
@@ -70,7 +97,7 @@ const Create = () => {
         console.log(file)
       }
     }
-    
+
     let profile_preview = null;
     if (file !== '') {profile_preview = <img className='profile_preview' src={previewURL} alt={title} />}
     else {profile_preview = <div className='empty'> <br/> <br/> Click to upload image</div>}

@@ -19,6 +19,12 @@ import firebase from '../../firebase';
 
 const PostDetail = (props) => {
 
+    const styles = {
+        height: '600px',
+        width: '350px',
+        borderColot: 'black',
+    }
+
     const [postId, setPostId] = useState(''); 
     const [writer, setWriter] = useState('');  
     const [title, setTitle] = useState(''); 
@@ -26,6 +32,7 @@ const PostDetail = (props) => {
     const [imgPath, setImgPath] = useState(''); 
     const [timestamp, setTimestamp] = useState((new Date()).toString()); 
     const [username, setUserName] = useState('');
+    const [crewname, setCrewName] = useState('');
 
     const [expanded, setExpanded] = useState(false);
     const [comments, setComments] = useState([]);
@@ -42,6 +49,7 @@ const PostDetail = (props) => {
         firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get().then(userdata => {
             console.log('user : ',userdata.data().username);
             setUserName(userdata.data().username);
+            setCrewName(userdata.data().crew);
         })
 
         posts.doc(props.location.state.id).get().then(post => {
@@ -51,7 +59,7 @@ const PostDetail = (props) => {
             setTitle(post.data().title);
             setContent(post.data().content);
             setImgPath(post.data().imgPath);
-            setTimestamp(post.data().timestamp.toDate().toString().slice(0,21));
+            setTimestamp(post.data().timestamp.toDate().toString().slice(0,15));
             setLikeArray(post.data().whoLikes);
             
             const commentArray = post.data().comments;
@@ -71,11 +79,10 @@ const PostDetail = (props) => {
     }
 
     const handleLike = () => {
-
+        console.log('push like : ', username);
         posts.doc(props.location.state.id).update({
             whoLikes: [...likeArray, username]
           });
-
         setLikeArray(prev => [...prev, username]);
     }
 
@@ -93,10 +100,10 @@ const PostDetail = (props) => {
     const handleComment = (commentText) => {
 
         var newComment = {
-            authorUrl: 'https://www.w3schools.com/w3css/img_lights.jpg',
-            avatarUrl: 'https://www.w3schools.com/w3css/img_lights.jpg',
+            authorUrl: 'https://firebasestorage.googleapis.com/v0/b/wowo-cs473.appspot.com/o/amongus.jpg?alt=media&token=8bf3207b-2603-4f17-9350-09b852858a51',
+            avatarUrl: 'https://firebasestorage.googleapis.com/v0/b/wowo-cs473.appspot.com/o/amongus.jpg?alt=media&token=8bf3207b-2603-4f17-9350-09b852858a51',
             createdAt: new Date(),
-            fullName: username,
+            fullName: username + ' - ' + crewname,
             text: commentText
         }
 
@@ -115,21 +122,26 @@ const PostDetail = (props) => {
             ...base,
             background: '#123456',
         }),
-        comment: base => ({ ...base }),
-        textarea: base => ({ ...base }),
+        comment: base => ({ 
+            ...base,
+
+        }),
+        textarea: base => ({ 
+            ...base
+        }),
     }
 
     return ( 
-        <div>
+        <div style={styles}>
             <Card className='root'>
                 <CardHeader
                     avatar={<Avatar className='avatar'> {writer} </Avatar>}
                     title={<span className='title'>{title}</span>}
-                    subheader={<span className='createdAt'>{timestamp}</span>}
+                    subheader={<span className='createdAt'>{<div><span className='postdetailcrewname'>{crewname}</span><div className='postdetailtimestamp'>{timestamp}</div></div>}</span>}
                 />
                 <img src={imgPath} alt={postId} className="img-fluid"/>
                 <CardActions disableSpacing>
-                    {likeArray.includes('userID') 
+                    {likeArray.includes(username) 
                     ?   <IconButton aria-label="remove from favorites" onClick={cancelLike}> 
                             <FavoriteIcon/>
                         </IconButton>
@@ -151,19 +163,21 @@ const PostDetail = (props) => {
                 </Collapse>
             </Card>
 
-            <div className='commentBlock'>
-                <CommentsBlock
-                comments={comments}
-                signinUrl={'/login'}
-                isLoggedIn={true}
-                styles={commentStyle}
-                onSubmit={commentText => {
-                    if (commentText.length > 0) { handleComment(commentText)
-                    console.log('submit:', commentText);
-                    } else {
-                        alert('No comments written');
-                    }
-                }}/>
+            <div className='commentBlock' style={{height: '300px', width : '100%', overflow:'auto'}}>
+                <div className='realcomments'>
+                    <CommentsBlock 
+                    comments={comments}
+                    signinUrl={'/login'}
+                    isLoggedIn={true}
+                    styles={commentStyle}
+                    onSubmit={commentText => {
+                        if (commentText.length > 0) { handleComment(commentText)
+                        console.log('submit:', commentText);
+                        } else {
+                            alert('No comments written');
+                        }
+                    }}/>
+                </div>
             </div>
         </div>
     );

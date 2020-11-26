@@ -23,7 +23,7 @@ const styles = {
     padding: "10px 10px",
     borderRadius: "100px",
     borderWidth: '2px',
-    backgroundColor: "#5DB075",
+    backgroundColor: "#41ABFF",
     fontSize: '20px',
     fontWeight: 'bold',
     fontStyle: 'italic',
@@ -61,7 +61,7 @@ const Workout = (props) => {
           <NavLink to="/main">
             <button
               type="button"
-              class="btn"
+              className="btn"
               style={!pop ? {...styles.doneButton, ...styles.beforeMargin} : {...styles.doneButton, ...styles.afterMargin}}
               onClick={onClick}
             >

@@ -1,6 +1,6 @@
 .calendar_img {
-  width: XYpx;
-  height: XYpx;
+  width: auto;
+  height: 100%;
 }
 
 .titleCalendar{
@@ -11,8 +11,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 #ubuntuFont {
-
-
   font-family: Ubuntu;
   font-weight: 500;
   font-size: 2em;

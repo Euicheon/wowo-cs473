@@ -5,10 +5,7 @@ import '../CSS/Post.css';
 const Post = (props) => {
 
     const [title, setTitle] = useState('Default Title');
-    const [imgPath, setImgPath] = useState('https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png');
-
-    const defaultImages = [
-    ]
+    const [imgPath, setImgPath] = useState('https://firebasestorage.googleapis.com/v0/b/wowo-cs473.appspot.com/o/wowo_logo.png?alt=media&token=fc8dfa4e-777f-4746-9aa0-cca5268e7008');
 
     const handleProps = (data) => {
         if (data.title !== undefined) {setTitle(data.title)};
@@ -16,10 +13,6 @@ const Post = (props) => {
 
     const handleImgPath = (data) => {
         if (data.imgPath !== undefined) {setImgPath(data.imgPath)}
-        else {
-            var randImage = Math.floor(Math.random() * defaultImages.length)
-            setImgPath(defaultImages[randImage])
-        }
     }
 
     useEffect(() => {
@@ -31,13 +24,12 @@ const Post = (props) => {
         <div className="row">
             <div className="col-md-12 px-0">
                 <div className="rounded-lg overflow-hidden">
-                {/*<div className='description'>♥{props.info.data.whoLikes.length}</div>*/}
                     <NavLink to={{
                         pathname: '/post/detail',
                         state: props.info}}>
                         <img src={imgPath} alt={props.info.id} className="img-fluid"/>
                     </NavLink>
-                    <div className='postDescription'>{title}</div>
+                    <div className='postDescription'>{title}<span className='postlikes'>♥{props.info.data.whoLikes.length}</span></div>
                 </div>
             </div>
         </div>

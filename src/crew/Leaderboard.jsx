@@ -14,7 +14,7 @@ const Leaderboard = (props) => {
     // console.log("!data is :", sdata);
 
     return (
-        <div className='leaderboard'>
+        <div className='leaderboard' style={{textAlign: 'center'}}>
             {sdata &&
                 <>
                     <ul>

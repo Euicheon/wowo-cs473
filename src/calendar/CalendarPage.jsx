@@ -4,9 +4,8 @@ import calendar from './demo_calendar.jpeg';
 
 const styles = {
 	align: {
-		backgroundColor: 'skyblue',
 		textAlign: 'center',
-		height: '100%',
+		height: '600px',
 		width: '100%',
 	},
 };
@@ -24,10 +23,10 @@ const ColoredLine = ({ color }) => (
 
 const CalendarPage = () => {
 	return (
-		<div class = "calendar_img">
+		<div style={styles.align} >
 			<h2 id = "ubuntuFont" className="titleCalendar">Calendar</h2>
       <ColoredLine color="gray" />
-			<img src={calendar} style={styles.align} alt='' />
+			<img src={calendar} alt='' />
 		</div>
 	);
 };

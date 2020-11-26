@@ -1,7 +1,7 @@
 .home--container{
 	margin: 0 auto;
 	height: 600px;
-	width: 100%;
+	width: 433px;
 }
 .home--container h1{
 	text-align: center;
@@ -19,8 +19,8 @@
 	font-style: normal;
 }
 .chat-list strong{
-	display: inline-block;
-	margin: 0 5px 0 10px;
+	/* display: inline-block;
+	margin: 0 5px 0 10px; */
 }
 .send-chat{
 	margin-top: 15px;
@@ -38,4 +38,30 @@
 }
 .disallow-chat{
 	text-align: center;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.mini-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: #6bb5d8;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: .2s;
+	margin: 0;
+	/* box-shadow: -1rem 0 3rem rgb(182, 182, 182); */
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 30px;
+	margin-right: 30px;
+	position: relative;
+	/* box-sizing: border-box; */
+}
+
+.mini-card:hover {
+	transform: translateY(-1rem);
 }
