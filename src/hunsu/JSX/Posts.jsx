@@ -70,7 +70,7 @@ const Posts = () => {
     return (
         <div>
             <div className='container-SearchCreate'>
-                <div><NavLink to='/post/create'> <Button className="createButton">Create</Button> </NavLink></div>
+                <div><NavLink to={process.env.PUBLIC_URL + '/post/create'}> <Button className="createButton">Create</Button> </NavLink></div>
                 <div><input placeholder="Search" className="searchBar" onChange={onSearchChange}/></div>
             </div>
             <div id="scrollableDiv" className='scroll-container'>
