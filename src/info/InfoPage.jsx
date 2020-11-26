@@ -19,6 +19,51 @@ const styles = {
   },
 };
 
+const ColoredLine = ({ color }) => (
+  <hr
+      style={{
+          color: color,
+          backgroundColor: color,
+          height: 1
+      }}
+  />
+);
+
+class InfoPage extends React.Component {
+  userList = null;
+
+  state = {
+    username: '',
+    email: '',
+    gender:'',
+    birth: '',
+    crew: '',
+    points:'',
+    profileImgPath: ''
+  }
+
+
+
+
+
+  render() {
+    return (
+      <div id = "ubuntuFont" className="profile-box" style={{textAlign: "center"}}>
+        <h2 className="titleProfile">Profile</h2>
+        <ColoredLine color="gray" />
+        
+        
+
+      </div>
+    )
+  }
+}
+
+export default InfoPage;
+
+
+{/* 
+
 class InfoPage extends React.Component {
   userList = null;
 
@@ -108,9 +153,7 @@ class InfoPage extends React.Component {
 }
 
 export default InfoPage;
-
-
-
+*/}
 
 
 
