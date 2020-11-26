@@ -34,10 +34,10 @@ const styles = {
 
 const App = (props) => {
   const [crew, setCrew] = useState(null);
-  const [index, setIndex] = useState(props.index || 0);
+  const [index, setIndex] = useState(props.index || '0');
 
   const handleChange = (event, value) => {
-    setIndex(parseInt(value))
+    setIndex(value)
   };
 
   // const handleChangeIndex = (value) => {
@@ -77,7 +77,7 @@ const App = (props) => {
         <Col lg={3.5} md={5.5} sm={7.5}>
           <Navbar bg="light" expand="sm" align="center" className="navbar-custom">
             {/* <Navbar.Brand>wowo</Navbar.Brand> */}
-            <a className="navbar-brand" href="/">
+            <a className="navbar-brand" href={process.env.PUBLIC_URL + "/"}>
               <div className="logo-image">
                 <img src={logo_img} className="img-fluid" />
               </div>
@@ -85,23 +85,23 @@ const App = (props) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav" style={{ flexDirection: 'row', }}>
               <Nav className="ml-auto">
-                <Nav.Link onClick={() => firebase.auth().signOut()} href="/login">Logout</Nav.Link>
+                <a onClick={() => firebase.auth().signOut()} href={process.env.PUBLIC_URL + "/login"}>Logout</a>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
 
-          <Route path="/main" component={MainPage} />
-          <Route path="/crew" component={() => <CrewPage user={props.user} crew={crew} />} />
-          <Route path="/hunsu" component={Posts} />
-          <Route path="/calendar" component={CalendarPage} />
-          <Route path="/info" component={InfoPage} />
+          <Route path={process.env.PUBLIC_URL + "/main"} component={MainPage} />
+          <Route path={process.env.PUBLIC_URL + "/crew"} component={() => <CrewPage user={props.user} crew={crew} />} />
+          <Route path={process.env.PUBLIC_URL + "/hunsu"} component={Posts} />
+          <Route path={process.env.PUBLIC_URL + "/calendar"} component={CalendarPage} />
+          <Route path={process.env.PUBLIC_URL + "/info"} component={InfoPage} />
 
           <BottomNavigation style={styles.navigation} value={index} onChange={handleChange} showLabels>
-            <BottomNavigationAction component={Link} to="/main" label="Main" value="0" icon={<Home />} />
-            <BottomNavigationAction component={Link} to="/crew" label="Crew" value="1" icon={<Forum />} />
-            <BottomNavigationAction component={Link} to="/hunsu" label="Hunsu" value="2" icon={<Dashboard />} />
-            <BottomNavigationAction component={Link} to="/calendar" label="Calendar" value="3" icon={<DateRange />} />
-            <BottomNavigationAction component={Link} to="/info" label="Profile" value="4" icon={<AccountCircle />} />
+            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/main"} label="Main" value="0" icon={<Home />} />
+            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/crew"} label="Crew" value="1" icon={<Forum />} />
+            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/hunsu"} label="Hunsu" value="2" icon={<Dashboard />} />
+            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/calendar"} label="Calendar" value="3" icon={<DateRange />} />
+            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/info"} label="Profile" value="4" icon={<AccountCircle />} />
           </BottomNavigation>
         </Col>
       }

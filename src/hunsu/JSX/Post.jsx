@@ -25,7 +25,7 @@ const Post = (props) => {
             <div className="col-md-12 px-0">
                 <div className="rounded-lg overflow-hidden">
                     <NavLink to={{
-                        pathname: '/post/detail',
+                        pathname: process.env.PUBLIC_URL + '/post/detail',
                         state: props.info}}>
                         <img src={imgPath} alt={props.info.id} className="img-fluid"/>
                     </NavLink>
