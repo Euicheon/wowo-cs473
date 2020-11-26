@@ -1,17 +1,19 @@
-.calendar_img {
-  width: auto;
-  height: 100%;
-}
-
-.titleCalendar{
-  color: #123456;
-  margin-top: 10px;
+#topbar-container {
+  width: 100%;
   text-align: center;
+  margin-top: 20px;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
-#ubuntuFont {
+#topbar {
+
+
   font-family: Ubuntu;
   font-weight: 500;
   font-size: 2em;
+}
+
+#topbar-back-btn {
+  float: left;
+  background-color: palevioletred;
 }
