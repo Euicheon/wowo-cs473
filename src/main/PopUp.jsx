@@ -68,7 +68,7 @@ const PopUp = (props) => {
 
 
   const uploadMessage =
-    "[SYSTEM] " + user.displayName + " worked out for " + formattedDuration(dh, dm, ds)
+    "[SYSTEM] " + user.displayName + " worked out for " + formattedDuration(dh, dm - dh*60, ds - dm*60)
 
   const onShare = () => {
     props.handleSubmit(false)
