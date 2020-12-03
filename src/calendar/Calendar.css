@@ -9,6 +9,14 @@
   text-align: center;
 }
 
+.react-calendar__tile--now {
+  background: #ffffff !important;
+}
+
+.react-calendar__tile--active {
+  background: #006edc !important;
+}
+
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 #ubuntuFont {
   font-family: Ubuntu;

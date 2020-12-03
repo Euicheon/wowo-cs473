@@ -1,13 +1,18 @@
 import React from 'react';
 import './Calendar.css';
+import CalendarRecord from './CalendarRecord';
 import calendar from './demo_calendar.jpeg';
 
 const styles = {
 	align: {
-		textAlign: 'center',
-		height: '520px',
-		width: '90%',
+		width: '433px',
+		height: '600px',
+		display: 'flex',
+		justifyContent: 'center',
 	},
+	calendar: {
+		marginTop: '5%',
+	}
 };
 
 
@@ -23,11 +28,12 @@ const ColoredLine = ({ color }) => (
 
 const CalendarPage = () => {
 	return (
-		<div className="calendar_img">
+		<div style={styles.align}>
 			<div style={{textAlign: 'center'}}>
 				<h2 id="ubuntuFont" className="titleCalendar">Calendar</h2>
 				<ColoredLine color="gray" />
-				<img src={calendar} style={styles.align} alt='' />
+				{/* <img src={calendar} style={styles.align} alt='' /> */}
+				<CalendarRecord />
 				</div>
 		</div>
 	);

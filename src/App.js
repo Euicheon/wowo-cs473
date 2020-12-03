@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Link } from 'react-router-dom';
-import { Col, Navbar, Nav, NavLink } from 'react-bootstrap';
+import { Col, Navbar, Nav } from 'react-bootstrap';
 
 import MainPage from './main/MainPage';
 import CrewPage from './crew/CrewPage';
@@ -34,15 +34,13 @@ const styles = {
 
 const App = (props) => {
   const [crew, setCrew] = useState(null);
-  const [index, setIndex] = useState(props.index || '0');
+  const [index, setIndex] = useState(props.index || 'main');
+  const [redirect, setRedirect] = useState(true);
 
   const handleChange = (event, value) => {
     setIndex(value)
   };
 
-  // const handleChangeIndex = (value) => {
-  //   setIndex(value)
-  // };
 
   const crewValidity = (uid) => {
     var docRef = db.collection("users").doc(uid);
@@ -81,7 +79,7 @@ const App = (props) => {
             {/* <Navbar.Brand>wowo</Navbar.Brand> */}
             <a className="navbar-brand" href={process.env.PUBLIC_URL + "/main"}>
               <div className="logo-image">
-                <img src={logo_img} className="img-fluid" />
+                <img src={logo_img} alt="logo" className="img-fluid" />
               </div>
             </a>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -99,11 +97,11 @@ const App = (props) => {
           <Route path={process.env.PUBLIC_URL + "/info"} component={() => <InfoPage user={props.user} />} />
 
           <BottomNavigation style={styles.navigation} value={index} onChange={handleChange} showLabels>
-            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/main"} label="Main" value="0" icon={<Home />} />
-            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/crew"} label="Crew" value="1" icon={<Forum />} />
-            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/hunsu"} label="Hunsu" value="2" icon={<Dashboard />} />
-            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/calendar"} label="Calendar" value="3" icon={<DateRange />} />
-            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/info"} label="Profile" value="4" icon={<AccountCircle />} />
+            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/main"} label="Main" value="main" icon={<Home />} />
+            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/crew"} label="Crew" value="crew" icon={<Forum />} />
+            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/hunsu"} label="Hunsu" value="hunsu" icon={<Dashboard />} />
+            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/calendar"} label="Calendar" value="calendar" icon={<DateRange />} />
+            <BottomNavigationAction component={Link} to={process.env.PUBLIC_URL + "/info"} label="Profile" value="profile" icon={<AccountCircle />} />
           </BottomNavigation>
         </Col>
       }
