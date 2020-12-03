@@ -59,7 +59,7 @@ class Register extends React.Component {
 							.catch(function (error) {
 								console.error("Error adding document: ", error);
 							});
-							this.props.history.push('/main');
+							this.props.history.push(process.env.PUBLIC_URL + '/main');
 					})
 					.catch(error => {
 						this.setState({ error });
@@ -101,7 +101,7 @@ class Register extends React.Component {
 					<input type="text" name="birth" id="birth" value={birth} onChange={this.handleChange} />
 
 					<button className="general-submit" style={styles.margin} children="Get Started" />
-					<p>Already have an account? <Link className="login-btn" to="/login">Login here</Link></p>
+					<p>Already have an account? <Link className="login-btn" to={process.env.PUBLIC_URL + "/login"}>Login here</Link></p>
 				</form>
 			</div>
 		);

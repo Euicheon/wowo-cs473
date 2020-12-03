@@ -64,7 +64,7 @@ const Create = () => {
         }).then(docRef => {
             console.log('New Post Created : ', docRef.id)
             alert('You got 2 points!');
-            window.location.href = "/hunsu";
+            window.location.href = process.env.PUBLIC_URL + "/hunsu";
           }).catch(err => {
             console.log('New Posting Failed : ',err)
             alert("Posting Failed");
@@ -125,7 +125,7 @@ const Create = () => {
             
           <div className='buttonContainer'>
             <Button onClick={writeBoard} className='button'> Save </Button>
-            <NavLink to='/hunsu'> <Button className='button'> Quit </Button> </NavLink>
+            <NavLink to={process.env.PUBLIC_URL + '/hunsu'}> <Button className='button'> Quit </Button> </NavLink>
           </div>
       </div>
     );
