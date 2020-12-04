@@ -22,7 +22,6 @@ const PostDetail = (props) => {
     const styles = {
         height: '600px',
         width: '350px',
-        borderColot: 'black',
     }
 
     const [postId, setPostId] = useState(''); 
@@ -34,7 +33,7 @@ const PostDetail = (props) => {
     const [username, setUserName] = useState('');
     const [crewname, setCrewName] = useState('');
 
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(true);
     const [comments, setComments] = useState([]);
     const [likeArray, setLikeArray] = useState([]);
 
@@ -43,6 +42,9 @@ const PostDetail = (props) => {
     };
 
     const posts = firebase.firestore().collection("posts");
+    const db = firebase.firestore();
+    const increment = firebase.firestore.FieldValue.increment(1);
+    const user = firebase.auth().currentUser;
 
     const parsePost = () => {
 
@@ -111,6 +113,12 @@ const PostDetail = (props) => {
         posts.doc(props.location.state.id).update({
             comments: [...comments, newComment]
         });
+
+        db.collection('users').doc(user.uid).update({
+            points: increment
+        })
+
+        alert('You got 1 point!');
     }
 
     useEffect(() => {
