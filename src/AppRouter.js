@@ -34,18 +34,18 @@ class AppRouter extends React.Component {
 						{this.state.user &&
 							<>
 								<Switch>
-									<Route path="/post/create" exact component={Create}></Route>
-									<Route path="/post/detail" exact component={PostDetail}></Route>
-									<Route path="/main/workout" exact component={Workout} />
-									<Route path="/" render={() => <App user={this.state.user} index={this.props.index} />} />
+									<Route path={process.env.PUBLIC_URL + "/post/create"} exact component={Create}></Route>
+									<Route path={process.env.PUBLIC_URL + "/post/detail"} exact component={PostDetail}></Route>
+									<Route path={process.env.PUBLIC_URL + "/main/workout"} exact component={Workout} />
+									<Route path={process.env.PUBLIC_URL + "/"} render={() => <App user={this.state.user} index={'main'} />} />
 								</Switch>
 							</>
 						}
 						{!this.state.user &&
 							<Switch>
-								<Route path="/login" exact component={Login} />
-								<Route path="/register" exact component={Register} />
-								<Route path="/" exact component={Login} />
+								<Route path={process.env.PUBLIC_URL + "/login"} exact component={Login} />
+								<Route path={process.env.PUBLIC_URL + "/register"} exact component={Register} />
+								<Route path={process.env.PUBLIC_URL + "/"} exact component={Login} />
 							</Switch>
 						}
 					</Row>

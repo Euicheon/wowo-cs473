@@ -1,4 +1,25 @@
 .calendar_img {
-  width: auto;
-  height: 100%;
+  width: 433px;
+  height: 600px;
+}
+
+.titleCalendar{
+  color: #123456;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.react-calendar__tile--now {
+  background: #ffffff !important;
+}
+
+.react-calendar__tile--active {
+  background: #006edc !important;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+#ubuntuFont {
+  font-family: Ubuntu;
+  font-weight: 500;
+  font-size: 2em;
 }

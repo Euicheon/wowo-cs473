@@ -34,7 +34,7 @@ class Login extends React.Component {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(user => {
-        this.props.history.push('/main');
+        this.props.history.push(process.env.PUBLIC_URL + '/main');
       })
       .catch(error => {
         this.setState({ error });
@@ -61,7 +61,7 @@ class Login extends React.Component {
             onChange={this.handleChange}
           />
           <button className="general-submit" style={styles.margin} children="Get Started" />
-          <p>Don't have an account? <Link className="register-btn" to="/register">Register here</Link></p>
+          <p>Don't have an account? <Link className="register-btn" to={process.env.PUBLIC_URL+"/register"}>Register here</Link></p>
         </form>
       </div>
     );

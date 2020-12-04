@@ -71,7 +71,7 @@ const PopUp = (props) => {
 
 
   const uploadMessage =
-    "[SYSTEM] " + user.displayName + " worked out for " + formattedDuration(dh, dm, ds)
+    "[SYSTEM] " + user.displayName + " worked out for " + formattedDuration(dh, dm - dh*60, ds - dm*60)
 
   const onShare = () => {
     props.handleSubmit(false)
@@ -133,8 +133,8 @@ const PopUp = (props) => {
         <div>Would you share this exercise record with your Crew?</div>
         <div style={styles.upload}>{uploadMessage}</div>
         <div style={{ display: 'flex', flexDirection: 'column', }}>
-          <NavLink to="/crew"><Button style={styles.btnShare} onClick={onShare}>Share</Button></NavLink>
-          <NavLink to="/main"><Button style={styles.btnCancel} onClick={onCancel}>Cancel</Button></NavLink>
+          <NavLink to={process.env.PUBLIC_URL + "/crew"}><Button style={styles.btnShare} onClick={onShare}>Share</Button></NavLink>
+          <NavLink to={process.env.PUBLIC_URL + "/main"}><Button style={styles.btnCancel} onClick={onCancel}>Cancel</Button></NavLink>
         </div>
       </div>
     </div>
