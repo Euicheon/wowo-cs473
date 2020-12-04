@@ -49,7 +49,6 @@ const styles = {
 
 var db = firebase.firestore();
 var rtdb = firebase.database();
-const user = firebase.auth().currentUser;
 const increment = firebase.firestore.FieldValue.increment(1); 
 // increment 안에 숫자 변경하면 증가하는 point 증가 
 
@@ -101,11 +100,11 @@ const PopUp = (props) => {
         console.error("Error adding document: ", error);
       });
 
-      db.collection('users').doc(user.uid).update({
-        points: increment
-      })
+    db.collection('users').doc(user.uid).update({
+      points: increment
+    })
 
-      alert('You got 1 point!');
+    alert('You got 1 point!');
   }
 
   const onCancel = () => {
@@ -124,6 +123,12 @@ const PopUp = (props) => {
       .catch(function (error) {
         console.error("Error adding document: ", error);
       });
+
+    db.collection('users').doc(user.uid).update({
+      points: increment
+    })
+
+    alert('You got 1 point!');
   }
 
   return (
