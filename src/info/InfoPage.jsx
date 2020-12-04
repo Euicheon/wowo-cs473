@@ -1,6 +1,8 @@
 import React from 'react';
 import firebase from '../firebase';
+import PopUp from './InfoPopUp';
 
+import { IconButton } from '@material-ui/core';
 import { Info } from '@material-ui/icons';
 
 import './infoPage.css';
@@ -36,18 +38,20 @@ const ColoredLine = ({ color }) => (
 );
 
 class InfoPage extends React.Component {
-  userList = null;
-
-  state = {
-    username: 'AmonGus',
-    email: 'amongus@gmail.com',
-    gender: 'Female',
-    birth: '991225',
-    crew: 'Imposters',
-    points: '0',
-    profileImgPath: ''
+  constructor(props) {
+    super(props);
+    this.state = {
+      info: false,
+      username: 'AmonGus',
+      email: 'amongus@gmail.com',
+      gender: 'Female',
+      birth: '991225',
+      crew: 'Imposters',
+      points: '0',
+      profileImgPath: '',
+    }
   }
-
+  userList = null;
 
   componentDidMount() {
     var user = firebase.auth().currentUser;
@@ -64,30 +68,36 @@ class InfoPage extends React.Component {
       .catch(function (error) {
         console.error("Error getting document: ", error);
       });
-
   }
 
+  onInfoClick() {
+    this.setState({ info: !this.state.info })
+  }
 
   render() {
     return (
-      <div style={{ height: "600px", width: "433px", textAlign: "center" }}>
-        <h2 id="ubuntuFont" className="titleProfile">Profile</h2>
-        <ColoredLine color="gray" />
-        <div className="profile-box">
-          <img src={demoProfile} alt="" style={styles.profileImg} ></img>
-          <h2 id="ubuntuSmallBold" className="name">{this.state.username}</h2>
-          <h2 id="ubuntuSmallBlack">{this.state.email}</h2>
-          <div style={{ marginLeft: '20%'}}>
-            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center' }}>
+      <>
+        {
+          this.state.info &&
+          <PopUp handleSubmit={this.onInfoClick.bind(this)} />
+        }
+        <div style={{ height: "600px", width: "433px", textAlign: "center" }}>
+          <h2 id="ubuntuFont" className="titleProfile">Profile</h2>
+          <ColoredLine color="gray" />
+          <div className="profile-box">
+            <img src={demoProfile} alt="" style={styles.profileImg} ></img>
+            <h2 id="ubuntuSmallBold" className="name">{this.state.username}</h2>
+            <h2 id="ubuntuSmallBlack">{this.state.email}</h2>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
               <h2 id="ubuntuSmallPink">Crew: {this.state.crew} | Points: {this.state.points}</h2>
-              <Info style={{ marginLeft: '1%' }} />
+              <IconButton onClick={this.onInfoClick.bind(this)}>
+                <Info style={{ marginLeft: '1%', marginBottom: '1%' }} />
+              </IconButton>
             </div>
           </div>
+          <ColoredLine color="gray" />
         </div>
-        <ColoredLine color="gray" />
-
-
-      </div>
+      </>
     )
   }
 }
