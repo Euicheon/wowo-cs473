@@ -90,8 +90,9 @@ class Register extends React.Component {
 						value={password}
 						onChange={this.handleChange}
 					/>
+					{/*
 					<label htmlFor="gender">Gender</label>
-					{/* <input type="text" name="gender" id="gender" value={gender} onChange={this.handleChange} /> */}
+					
 					<select value={gender} onChange={this.handleChange}>
 						<option value='Female'>Female</option>
 						<option value='Male'>Male</option>
@@ -100,8 +101,10 @@ class Register extends React.Component {
 					<label htmlFor='birth'>Birth (YYMMDD)</label>
 					<input type="text" name="birth" id="birth" value={birth} onChange={this.handleChange} />
 
+					*/}
 					<button className="general-submit" style={styles.margin} children="Get Started" />
 					<p>Already have an account? <Link className="login-btn" to={process.env.PUBLIC_URL + "/login"}>Login here</Link></p>
+					
 				</form>
 			</div>
 		);
